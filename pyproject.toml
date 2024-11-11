@@ -7,7 +7,10 @@ build-backend = "setuptools.build_meta"
 name = "mowidget"
 version = "0.1.0"
 description = "A comprehensive library of custom anywidget implementations for Marimo notebooks"
-authors = [{ name = "eugene", email = "heinereugene@pm.me" }]
+authors = [
+  { name = "eugene", email = "heinereugene@pm.me" },
+  { name = "Srihari Thyagarajan", email = "hari.leo03@gmail.com" }
+]
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = ["anywidget>=0.9.13", "traitlets>=5.14.3"]
