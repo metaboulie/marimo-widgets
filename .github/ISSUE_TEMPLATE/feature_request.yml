@@ -1,0 +1,18 @@
+name: Feature Request
+description: Suggest an idea for this project
+labels: [enhancement]
+body:
+    - type: input
+      id: feature
+      attributes:
+          label: Feature Description
+          description: Describe the feature you'd like to propose
+      validations:
+          required: true
+    - type: textarea
+      id: motivation
+      attributes:
+          label: Motivation
+          description: Why is this feature important?
+      validations:
+          required: true

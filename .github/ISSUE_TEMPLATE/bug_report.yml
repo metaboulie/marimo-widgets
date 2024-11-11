@@ -1,0 +1,22 @@
+name: Bug Report
+description: Create a report to help us improve
+labels: [bug]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              ## Bug Report Guidelines
+    - type: input
+      id: description
+      attributes:
+          label: Bug Description
+          description: Provide a clear and concise description of the bug
+      validations:
+          required: true
+    - type: textarea
+      id: steps
+      attributes:
+          label: Reproduction Steps
+          description: Detailed steps to reproduce the issue
+      validations:
+          required: true

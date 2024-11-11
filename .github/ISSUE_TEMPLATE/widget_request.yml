@@ -1,0 +1,125 @@
+name: Widget Request
+description: Propose a new custom widget for the Marimo Widgets library
+labels: [widget-request, enhancement]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              ## Widget Request Guidelines
+              Please provide a detailed description of the proposed widget. The more specific you are, the easier it will be to implement.
+
+    - type: input
+      id: widget-name
+      attributes:
+          label: Proposed Widget Name
+          description: A concise, descriptive name for the widget
+          placeholder: e.g., InteractiveParameterSweep
+      validations:
+          required: true
+
+    - type: dropdown
+      id: widget-category
+      attributes:
+          label: Widget Category
+          description: Select the most appropriate category for your widget
+          options:
+              - Data Visualization
+              - Scientific Computing
+              - Machine Learning
+              - Utility
+              - Other
+      validations:
+          required: true
+
+    - type: textarea
+      id: widget-description
+      attributes:
+          label: Detailed Widget Description
+          description:
+              Explain the purpose, functionality, and use cases of the widget
+          placeholder: |
+              Describe:
+              - What problem does this widget solve?
+              - What are its key features?
+              - How would it be used in a Marimo notebook?
+      validations:
+          required: true
+
+    - type: textarea
+      id: proposed-interface
+      attributes:
+          label: Proposed Widget Interface
+          description:
+              Describe the expected Python interface and any key methods or
+              properties
+          placeholder: |
+              Example:
+              ```python
+              class ProposedWidget:
+                  def __init__(self, initial_params):
+                      # Constructor details
+                  
+                  def update(self, new_params):
+                      # Update method
+                  
+                  def render(self):
+                      # Rendering logic
+              ```
+      validations:
+          required: false
+
+    - type: textarea
+      id: example-usage
+      attributes:
+          label: Example Usage Scenario
+          description:
+              Provide a hypothetical code snippet demonstrating how the widget
+              would be used
+          placeholder: |
+              ```python
+              import marimo as mo
+              from marimo_widgets.proposed_widget import ProposedWidget
+
+              widget = ProposedWidget(
+                  initial_params={...}
+              )
+
+              # Example of how the widget might be used in a notebook
+              ```
+      validations:
+          required: false
+
+    - type: checkboxes
+      id: widget-requirements
+      attributes:
+          label: Widget Characteristics
+          description: Select applicable characteristics of the proposed widget
+          options:
+              - label: Interactive
+              - label: Stateful
+              - label: Supports Real-time Updates
+              - label: Requires External Libraries
+              - label: Visualization-based
+              - label: Computation-heavy
+
+    - type: textarea
+      id: additional-context
+      attributes:
+          label: Additional Context
+          description:
+              Any other information, references, or context that might be
+              helpful
+          placeholder: |
+              - Relevant research papers
+              - Similar existing implementations
+              - Specific use cases or domains
+      validations:
+          required: false
+
+    - type: markdown
+      attributes:
+          value: |
+              ## Contribution Guidelines
+              - Ensure the widget adds unique value to the library
+              - Consider performance and integration with existing Marimo and anywidget ecosystems
+              - Be prepared to provide initial implementation or collaborate on development
