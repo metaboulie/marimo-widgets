@@ -1,0 +1,83 @@
+# Support Python 3.9+.
+target-version = "py39"
+
+# Set the maximum line length to 79.
+line-length = 79
+
+# auto-fix
+fix = true
+unsafe-fixes = true
+
+[lint]
+select = [
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  "SIM",
+  # isort
+  "I",
+  # flake8-quotes
+  "Q",
+  "W",
+  "C90",
+  "N",
+  "D",
+  "YTT",
+  "ANN",
+  "ASYNC",
+  "S",
+  "BLE",
+  "FBT",
+  "A",
+  "COM",
+  "C4",
+  "DTZ",
+  "T10",
+  "DJ",
+  "EM",
+  "EXE",
+  "FA",
+  "ISC",
+  "ICN",
+  "LOG",
+  "G",
+  "INP",
+  "PIE",
+  "T20",
+  "PYI",
+  "PT",
+  "RSE",
+  "RET",
+  "SLF",
+  "SLOT",
+  "TID",
+  "TCH",
+  "INT",
+  "ARG",
+  "PTH",
+  "TD",
+  "FIX",
+  "ERA",
+  "PD",
+  "PGH",
+  "PL",
+  "TRY",
+  "FLY",
+  "NPY",
+  "AIR",
+  "PERF",
+  "FURB",
+  "RUF",
+]
+
+ignore = ["D203", "D212", "COM812", "ISC001", "T201"]
+
+[format]
+docstring-code-format = true
+docstring-code-line-length = 60

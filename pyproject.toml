@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "mowidget"
+version = "0.1.0"
+description = "A comprehensive library of custom anywidget implementations for Marimo notebooks"
+authors = [{ name = "eugene", email = "heinereugene@pm.me" }]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["anywidget>=0.9.13", "traitlets>=5.14.3"]
+
+[dependency-groups]
+dev = [
+  "anywidget>=0.9.13",
+  "marimo>=0.9.17",
+  "ruff>=0.7.3",
+  "traitlets>=5.14.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/metaboulie/marimo-widgets"
+Repository = "https://github.com/metaboulie/marimo-widgets"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["mowidget"]
