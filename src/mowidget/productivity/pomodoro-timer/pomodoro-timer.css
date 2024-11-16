@@ -1,0 +1,124 @@
+:root {
+    --background: light-dark(#1a1b2e, #0a0a14);
+    --foreground: light-dark(#e2e4ff, #f0f0f0);
+    --accent: light-dark(#ff6b97, #ff7f7f);
+    --progress: light-dark(#2a2d4f, #333333);
+    --button-hover: light-dark(#ff8cb0, #ff9999);
+    --glass-bg: light-dark(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2));
+    --glow-color: light-dark(
+        rgba(228, 199, 208, 0.4),
+        rgba(255, 127, 127, 0.4)
+    );
+}
+
+.pomodoro-container {
+    background: linear-gradient(135deg, var(--glass-bg), transparent);
+    backdrop-filter: blur(10px);
+    color: var(--foreground);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    width: 340px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease,
+        border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pomodoro-container::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    opacity: 0.5;
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+}
+
+.timer-display {
+    font-size: 4.5em;
+    font-weight: 700;
+    margin: 20px 0;
+    font-family: "Space Mono", monospace;
+    text-shadow: 0 0 20px var(--glow-color);
+    background: linear-gradient(to right, var(--accent), var(--foreground));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+.session-info {
+    font-size: 1.1em;
+    margin: 15px 0;
+    padding: 10px;
+    background: var(--glass-bg);
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.control-btn {
+    background: linear-gradient(135deg, var(--accent), var(--button-hover));
+    color: var(--foreground);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.control-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--glow-color);
+}
+
+.control-btn:hover::before {
+    left: 100%;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
