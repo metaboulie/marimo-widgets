@@ -1,0 +1,120 @@
+:root {
+    --background: light-dark(#f0f4ff, #1a1b2e);
+    --foreground: light-dark(#1a1b2e, #e2e4ff);
+    --accent: light-dark(#7b2cbf, #9d4edd);
+    --accent-glow: light-dark(
+        rgba(123, 44, 191, 0.4),
+        rgba(157, 78, 221, 0.4)
+    );
+    --glass-bg: light-dark(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
+    --particle-color: light-dark(
+        rgba(123, 44, 191, 0.6),
+        rgba(157, 78, 221, 0.6)
+    );
+    --container-border: light-dark(
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.1)
+    );
+}
+
+.dummy-container {
+    background: linear-gradient(135deg, var(--glass-bg), transparent);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--container-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease,
+        border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dummy-container::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        var(--accent-glow) 0%,
+        transparent 70%
+    );
+    opacity: 0.5;
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+}
+
+.bouncing-text {
+    font-size: 2.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+    text-shadow: 0 0 10px var(--accent-glow);
+    color: var(--foreground);
+    position: relative;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    pointer-events: none;
+    animation: float 3s infinite;
+    border-radius: 50%;
+    color: var(--foreground);
+    text-shadow: 0 0 5px var(--accent-glow);
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate(20px, -20px) rotate(180deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+    }
+}
+
+.rainbow-text {
+    background: linear-gradient(to right, var(--accent), var(--foreground));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
