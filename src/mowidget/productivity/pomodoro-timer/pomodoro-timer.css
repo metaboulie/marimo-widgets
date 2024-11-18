@@ -57,7 +57,8 @@
     font-size: 1.1em;
     margin: 15px 0;
     padding: 10px;
-    background: light-dark(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2));
+    background: light-dark(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
+    color: light-dark(#1a1b2e, #f0f0f0);
     border-radius: 12px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
