@@ -19,7 +19,6 @@ dependencies = ["anywidget>=0.9.13", "traitlets>=5.14.3"]
 dev = [
   "anywidget>=0.9.13",
   "marimo>=0.9.17",
-  "mypy>=1.13.0",
   "ruff>=0.7.3",
   "traitlets>=5.14.3",
 ]

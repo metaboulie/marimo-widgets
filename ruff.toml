@@ -78,7 +78,7 @@ select = [
   "RUF",
 ]
 
-ignore = ["ANN101", "D203", "D205", "D212", "COM812", "ISC001", "T201"]
+ignore = ["D203", "D205", "D212", "COM812", "ISC001", "T201"]
 
 [format]
 docstring-code-format = true

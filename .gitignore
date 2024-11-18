@@ -115,6 +115,4 @@ marimo/_lsp/
 .mypy_cache/
 __marimo__
 
-node_modules/
-
 +*
