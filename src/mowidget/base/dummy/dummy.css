@@ -1,24 +1,9 @@
-:root {
-    --background: light-dark(#f0f4ff, #1a1b2e);
-    --foreground: light-dark(#1a1b2e, #e2e4ff);
-    --accent: light-dark(#7b2cbf, #9d4edd);
-    --accent-glow: light-dark(
-        rgba(123, 44, 191, 0.4),
-        rgba(157, 78, 221, 0.4)
-    );
-    --glass-bg: light-dark(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
-    --particle-color: light-dark(
-        rgba(123, 44, 191, 0.6),
-        rgba(157, 78, 221, 0.6)
-    );
-    --container-border: light-dark(
-        rgba(255, 255, 255, 0.3),
-        rgba(255, 255, 255, 0.1)
-    );
-}
-
 .dummy-container {
-    background: linear-gradient(135deg, var(--glass-bg), transparent);
+    background: linear-gradient(
+        135deg,
+        light-dark(rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2)),
+        transparent
+    );
     backdrop-filter: blur(10px);
     padding: 2rem;
     border-radius: 15px;
@@ -28,7 +13,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid var(--container-border);
+    border: 1px solid
+        light-dark(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, color 0.3s ease,
         border-color 0.3s ease, box-shadow 0.3s ease;
@@ -43,7 +29,7 @@
     height: 200%;
     background: radial-gradient(
         circle,
-        var(--accent-glow) 0%,
+        light-dark(rgba(123, 44, 191, 0.4), rgba(157, 78, 221, 0.4)) 0%,
         transparent 70%
     );
     opacity: 0.5;
@@ -56,8 +42,9 @@
     font-weight: bold;
     text-transform: uppercase;
     animation: bounce 2s infinite;
-    text-shadow: 0 0 10px var(--accent-glow);
-    color: var(--foreground);
+    text-shadow: 0 0 10px
+        light-dark(rgba(123, 44, 191, 0.4), rgba(157, 78, 221, 0.4));
+    color: light-dark(#1a1b2e, #e2e4ff);
     position: relative;
     z-index: 1;
 }
@@ -67,8 +54,9 @@
     pointer-events: none;
     animation: float 3s infinite;
     border-radius: 50%;
-    color: var(--foreground);
-    text-shadow: 0 0 5px var(--accent-glow);
+    color: light-dark(#1a1b2e, #e2e4ff);
+    text-shadow: 0 0 5px
+        light-dark(rgba(123, 44, 191, 0.4), rgba(157, 78, 221, 0.4));
 }
 
 @keyframes bounce {
@@ -94,7 +82,11 @@
 }
 
 .rainbow-text {
-    background: linear-gradient(to right, var(--accent), var(--foreground));
+    background: linear-gradient(
+        to right,
+        light-dark(#7b2cbf, #9d4edd),
+        light-dark(#1a1b2e, #e2e4ff)
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
