@@ -1,20 +1,11 @@
-:root {
-    --background: light-dark(#1a1b2e, #0a0a14);
-    --foreground: light-dark(#e2e4ff, #f0f0f0);
-    --accent: light-dark(#ff6b97, #ff7f7f);
-    --progress: light-dark(#2a2d4f, #333333);
-    --button-hover: light-dark(#ff8cb0, #ff9999);
-    --glass-bg: light-dark(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2));
-    --glow-color: light-dark(
-        rgba(228, 199, 208, 0.4),
-        rgba(255, 127, 127, 0.4)
-    );
-}
-
 .pomodoro-container {
-    background: linear-gradient(135deg, var(--glass-bg), transparent);
+    background: linear-gradient(
+        135deg,
+        light-dark(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2)),
+        transparent
+    );
     backdrop-filter: blur(10px);
-    color: var(--foreground);
+    color: light-dark(#e2e4ff, #f0f0f0);
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -34,7 +25,11 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    background: radial-gradient(
+        circle,
+        light-dark(rgba(228, 199, 208, 0.4), rgba(255, 127, 127, 0.4)) 0%,
+        transparent 70%
+    );
     opacity: 0.5;
     animation: rotate 20s linear infinite;
     pointer-events: none;
@@ -45,8 +40,13 @@
     font-weight: 700;
     margin: 20px 0;
     font-family: "Space Mono", monospace;
-    text-shadow: 0 0 20px var(--glow-color);
-    background: linear-gradient(to right, var(--accent), var(--foreground));
+    text-shadow: 0 0 20px
+        light-dark(rgba(228, 199, 208, 0.4), rgba(255, 127, 127, 0.4));
+    background: linear-gradient(
+        to right,
+        light-dark(#ff6b97, #ff7f7f),
+        light-dark(#e2e4ff, #f0f0f0)
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -57,7 +57,7 @@
     font-size: 1.1em;
     margin: 15px 0;
     padding: 10px;
-    background: var(--glass-bg);
+    background: light-dark(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2));
     border-radius: 12px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -74,8 +74,12 @@
 }
 
 .control-btn {
-    background: linear-gradient(135deg, var(--accent), var(--button-hover));
-    color: var(--foreground);
+    background: linear-gradient(
+        135deg,
+        light-dark(#ff6b97, #ff7f7f),
+        light-dark(#ff8cb0, #ff9999)
+    );
+    color: light-dark(#e2e4ff, #f0f0f0);
     border: none;
     padding: 12px 24px;
     border-radius: 12px;
@@ -107,7 +111,8 @@
 
 .control-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px var(--glow-color);
+    box-shadow: 0 5px 15px
+        light-dark(rgba(228, 199, 208, 0.4), rgba(255, 127, 127, 0.4));
 }
 
 .control-btn:hover::before {
