@@ -1,0 +1,89 @@
+.color-matrix-container {
+    --background: light-dark(#ffffff, #1a1b2e);
+    --text-color: light-dark(#1a1b2e, #e2e4ff);
+    --label-bg: light-dark(#f0f4ff, #2a2b3e);
+    --tooltip-bg: light-dark(
+        rgba(255, 255, 255, 0.95),
+        rgba(26, 27, 46, 0.95)
+    );
+
+    padding: 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--text-color);
+}
+
+.grid-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.color-grid {
+    display: grid;
+    gap: inherit;
+}
+
+.color-cell {
+    position: relative;
+    transition: transform 0.15s ease;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.color-cell:hover {
+    transform: scale(1.1);
+    z-index: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.color-cell .tooltip {
+    visibility: hidden;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: var(--tooltip-bg);
+    color: var(--text-color);
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-cell:hover .tooltip {
+    visibility: visible;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--label-bg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.25rem;
+}
+
+.row-labels {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0.5rem;
+    min-width: 5rem;
+}
+
+.row-label {
+    text-align: right;
+    padding: 0 0.5rem;
+}
+
+.color-cell.selected {
+    outline: 2px solid var(--text-color);
+    outline-offset: -2px;
+    z-index: 1;
+}
+
+.color-cell.selected:hover {
+    outline: 2px solid var(--text-color);
+    outline-offset: -2px;
+}
