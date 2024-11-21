@@ -55,13 +55,14 @@ function render({ model, el }) {
 
         const metadata = model.get("metadata");
         const banner = model.get("banner");
+        const bannerHeight = model.get("banner_height");
         const container = document.createElement("div");
         container.className = "header-container";
 
         container.innerHTML = `
             ${
                 banner
-                    ? `<img class="banner" src="${banner}" alt="Notebook Banner">`
+                    ? `<img class="banner" src="${banner}" alt="Notebook Banner" style="height: ${bannerHeight}px;">`
                     : ""
             }
             <div class="form-container">
@@ -103,7 +104,7 @@ function render({ model, el }) {
 
     renderWidget();
 
-    const properties = ["metadata", "banner"];
+    const properties = ["metadata", "banner", "banner_height"];
     const handlers = properties.map((prop) => {
         const handler = () => renderWidget();
         model.on(`change:${prop}`, handler);
