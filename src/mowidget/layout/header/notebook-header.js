@@ -101,21 +101,21 @@ function render({ model, el }) {
         });
     };
 
-    // Initial render
     renderWidget();
 
-    // Create change handlers
-    const handleMetadataChange = () => {
-        renderWidget();
-    };
+    const properties = ["metadata", "banner"];
+    const handlers = properties.map((prop) => {
+        const handler = () => renderWidget();
+        model.on(`change:${prop}`, handler);
+        return { prop, handler };
+    });
 
-    const handleBannerChange = () => {
-        renderWidget();
+    return () => {
+        handlers.forEach(({ prop, handler }) => {
+            model.off(`change:${prop}`, handler);
+        });
+        el.innerHTML = "";
     };
-
-    // Add event listeners
-    model.on("change:metadata", handleMetadataChange);
-    model.on("change:banner", handleBannerChange);
 }
 
 export default { render };
