@@ -71,7 +71,7 @@ class ColorMatrixWidget(anywidget.AnyWidget):
     grid_gap = traitlets.Int(default_value=2).tag(sync=True)
     font_size = traitlets.Int(default_value=12).tag(sync=True)
 
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         color_data: np.ndarray | list[list],
         tooltips: np.ndarray | list[list] | None = None,
