@@ -34,19 +34,18 @@ function render({ model, el }) {
 
     createParticles();
 
-    const handleMessageChange = () => {
-        createParticles();
-    };
-
-    const handleParticleCountChange = () => {
-        createParticles();
-    };
-
-    model.on("change:message", handleMessageChange);
-    model.on("change:particle_count", handleParticleCountChange);
+    const properties = ["message", "particle_count"];
+    const handlers = properties.map((prop) => {
+        const handler = () => createParticles();
+        model.on(`change:${prop}`, handler);
+        return { prop, handler };
+    });
 
     // Cleanup function
     return () => {
+        handlers.forEach(({ prop, handler }) => {
+            model.off(`change:${prop}`, handler);
+        });
         particles = [];
         el.innerHTML = "";
     };
