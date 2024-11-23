@@ -16,7 +16,7 @@ import numpy as np
 import traitlets
 
 
-class ColorMatrixWidget(anywidget.AnyWidget):
+class ColorMatrix(anywidget.AnyWidget):
     """
     An interactive widget for displaying a matrix of colors.
 
