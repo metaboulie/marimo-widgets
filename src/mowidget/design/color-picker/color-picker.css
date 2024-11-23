@@ -1,0 +1,31 @@
+.color-picker-container {
+    background: light-dark(#ffffff, #1a1a1a);
+    padding: 1rem;
+    border-radius: 8px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.picker-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.color-canvas {
+    border: 1px solid light-dark(#e0e0e0, #333333);
+    border-radius: 4px;
+    cursor: crosshair;
+}
+
+.selected-color-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    border: 1px solid light-dark(#e0e0e0, #333333);
+}
