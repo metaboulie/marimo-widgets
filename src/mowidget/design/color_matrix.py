@@ -12,6 +12,7 @@ from __future__ import annotations
 import pathlib
 
 import anywidget
+import marimo as mo
 import numpy as np
 import traitlets
 
@@ -132,3 +133,21 @@ class ColorMatrix(anywidget.AnyWidget):
         self.cell_height = cell_height
         self.grid_gap = grid_gap
         self.font_size = font_size
+
+    @classmethod
+    def controller(cls: type[ColorMatrix]) -> mo.ui.dictionary:
+        """Get the controller for the Color Matrix."""
+        return mo.ui.dictionary(
+            {
+                "cell_width": mo.ui.number(
+                    start=1, step=1, value=40, label="cell width"
+                ),
+                "cell_height": mo.ui.number(
+                    start=1, step=1, value=40, label="cell height"
+                ),
+                "grid_gap": mo.ui.number(start=0, value=2, label="grid gap"),
+                "font_size": mo.ui.number(
+                    start=1, step=0.1, value=10, label="font size"
+                ),
+            }
+        )

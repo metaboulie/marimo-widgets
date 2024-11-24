@@ -18,8 +18,8 @@ def __():
 
 @app.cell
 def __():
-    from mowidget.design.color_matrix import ColorMatrixWidget
-    return (ColorMatrixWidget,)
+    from mowidget.design.color_matrix import ColorMatrix
+    return (ColorMatrix,)
 
 
 @app.cell(hide_code=True)
@@ -40,53 +40,13 @@ def __(mo):
         label="number of columns in the color matrix",
         show_value=True,
     )
-    cell_width = mo.ui.slider(
-        start=10,
-        stop=50,
-        step=5,
-        value=20,
-        label="width of each cell in the color matrix",
-        show_value=True,
-    )
-    cell_height = mo.ui.slider(
-        start=10,
-        stop=50,
-        step=5,
-        value=20,
-        label="height of each cell in the color matrix",
-        show_value=True,
-    )
-    font_size = mo.ui.slider(
-        start=7,
-        stop=15,
-        step=1,
-        value=10,
-        label="font size",
-        show_value=True,
-    )
-    grid_gap = mo.ui.slider(
-        start=0,
-        stop=10,
-        step=1,
-        value=1,
-        label="grid gap",
-        show_value=True,
-    )
-    return cell_height, cell_width, font_size, grid_gap, num_cols, num_rows
+    return num_cols, num_rows
 
 
 @app.cell
-def __(
-    cell_height,
-    cell_width,
-    font_size,
-    grid_gap,
-    mo,
-    num_cols,
-    num_rows,
-):
-    mo.vstack([num_rows, num_cols, cell_width, cell_height, font_size, grid_gap])
-    return
+def __(ColorMatrix):
+    color_matrix_controller = ColorMatrix.controller()
+    return (color_matrix_controller,)
 
 
 @app.cell
@@ -103,17 +63,13 @@ def __(color_matrix):
 
 @app.cell
 def __(
-    ColorMatrixWidget,
-    cell_height,
-    cell_width,
-    font_size,
-    grid_gap,
+    ColorMatrix,
+    color_matrix_controller,
     mo,
     np,
     num_cols,
     num_rows,
     random_color_format,
-    row_labels,
 ):
     color_matrix = np.array(
         [
@@ -123,14 +79,9 @@ def __(
     )
 
     widget = mo.ui.anywidget(
-        ColorMatrixWidget(
+        ColorMatrix(
             color_data=color_matrix,
-            cell_width=cell_width.value,
-            cell_height=cell_height.value,
-            font_size=font_size.value,
-            grid_gap=grid_gap.value,
-            row_labels=row_labels,
-            tooltips=color_matrix,
+            **color_matrix_controller.value,
         )
     )
     return color_matrix, widget
@@ -139,6 +90,12 @@ def __(
 @app.cell
 def __(widget):
     widget
+    return
+
+
+@app.cell
+def __(color_matrix_controller, mo, num_cols, num_rows):
+    mo.vstack([num_rows, num_cols, color_matrix_controller.vstack()])
     return
 
 
