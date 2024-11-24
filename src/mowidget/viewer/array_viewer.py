@@ -246,13 +246,13 @@ class ArrayViewer(anywidget.AnyWidget):
                     start=0, value=2.0, label="outlier threshold"
                 ),
                 "cell_size": mo.ui.number(
-                    start=1, step=0.1, value=20, label="cell size (px)"
+                    start=1, step=1, value=20, label="cell size (px)"
                 ),
                 "margin_size": mo.ui.number(
-                    start=0, step=0.1, value=2, label="margin size (px)"
+                    start=0, step=1, value=2, label="margin size (px)"
                 ),
                 "font_size": mo.ui.number(
-                    start=1, step=0.1, value=10, label="font size (px)"
+                    start=1, step=1, value=10, label="font size (px)"
                 ),
             }
         )

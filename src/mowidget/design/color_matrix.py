@@ -147,7 +147,7 @@ class ColorMatrix(anywidget.AnyWidget):
                 ),
                 "grid_gap": mo.ui.number(start=0, value=2, label="grid gap"),
                 "font_size": mo.ui.number(
-                    start=1, step=0.1, value=10, label="font size"
+                    start=1, step=1, value=10, label="font size"
                 ),
             }
         )
