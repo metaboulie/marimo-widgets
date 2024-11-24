@@ -1,0 +1,102 @@
+.form-container {
+    background: light-dark(#ffffff, #1a1a1a);
+    padding: 1.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 2px 12px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.2));
+}
+
+.form-area {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    align-items: center;
+}
+
+.key-input,
+.value-input {
+    padding: 0.75rem;
+    border: 1px solid light-dark(#e0e0e0, #333);
+    border-radius: 8px;
+    background: light-dark(#f8f8f8, #242424);
+    color: light-dark(#2c2c2c, #ffffff);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.key-input:focus,
+.value-input:focus {
+    outline: none;
+    border-color: light-dark(#2196f3, #64b5f6);
+    box-shadow: 0 0 0 2px
+        light-dark(rgba(33, 150, 243, 0.1), rgba(33, 150, 243, 0.2));
+}
+
+.key-input {
+    width: 35%;
+}
+
+.value-input {
+    width: 55%;
+}
+
+.delete-btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    background: light-dark(#ffebee, #421c1c);
+    color: light-dark(#d32f2f, #ff5252);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.add-btn,
+.submit-btn {
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-btn {
+    background: light-dark(#f0f7f0, #1e3320);
+    color: light-dark(#2e7d32, #4caf50);
+    margin-right: 0.75rem;
+}
+
+.submit-btn {
+    background: light-dark(#e3f2fd, #1a3c61);
+    color: light-dark(#1565c0, #64b5f6);
+}
+
+.delete-btn:hover {
+    background: light-dark(#ffdde0, #4f2020);
+    transform: scale(1.05);
+}
+
+.add-btn:hover,
+.submit-btn:hover {
+    transform: scale(1.02);
+}
+
+.add-btn:hover {
+    background: light-dark(#e8f5e9, #234024);
+}
+
+.submit-btn:hover {
+    background: light-dark(#bbdefb, #1e4674);
+}

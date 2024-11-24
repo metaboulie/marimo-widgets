@@ -13,6 +13,7 @@ import pathlib
 from typing import TYPE_CHECKING, Callable, Literal
 
 import anywidget
+import marimo as mo
 import numpy as np
 import traitlets
 
@@ -227,3 +228,31 @@ class ArrayViewer(anywidget.AnyWidget):
             self.outlier_threshold = threshold
         self._update_markers()
         self._update_tooltips()
+
+    @classmethod
+    def controller(cls: type[ArrayViewer]) -> mo.ui.dictionary:
+        """Get the controller for the Array Viewer."""
+        return mo.ui.dictionary(
+            {
+                "color_mode": mo.ui.dropdown(
+                    options=["grayscale", "single_color"],
+                    value="grayscale",
+                    label="color mode",
+                ),
+                "base_color": mo.ui.text(
+                    value="#1f77b4", label="base color (hex)"
+                ),
+                "outlier_threshold": mo.ui.number(
+                    start=0, value=2.0, label="outlier threshold"
+                ),
+                "cell_size": mo.ui.number(
+                    start=1, step=0.1, value=20, label="cell size (px)"
+                ),
+                "margin_size": mo.ui.number(
+                    start=0, step=0.1, value=2, label="margin size (px)"
+                ),
+                "font_size": mo.ui.number(
+                    start=1, step=0.1, value=10, label="font size (px)"
+                ),
+            }
+        )

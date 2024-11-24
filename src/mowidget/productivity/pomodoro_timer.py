@@ -3,6 +3,7 @@
 import pathlib
 
 import anywidget
+import marimo as mo
 import traitlets
 
 
@@ -133,3 +134,29 @@ class PomodoroTimer(anywidget.AnyWidget):
         if value <= 0:
             msg = f"{param_name} must be positive, got {value}"
             raise ValueError(msg)
+
+    @classmethod
+    def controller(cls: type["PomodoroTimer"]) -> mo.ui.dictionary:
+        """Get the controller for the Pomodoro Timer."""
+        return mo.ui.dictionary(
+            {
+                "work_duration": mo.ui.number(
+                    start=0.1, value=25.0, label="work duration"
+                ),
+                "short_break": mo.ui.number(
+                    start=0.1, value=5.0, label="short break"
+                ),
+                "long_break": mo.ui.number(
+                    start=0.1, value=15.0, label="long break"
+                ),
+                "sessions_before_long_break": mo.ui.number(
+                    start=1,
+                    step=1,
+                    value=4,
+                    label="sessions before long break",
+                ),
+                "num_cycles": mo.ui.number(
+                    start=1, step=1, value=3, label="number of cycles"
+                ),
+            }
+        )

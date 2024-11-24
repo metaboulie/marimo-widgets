@@ -46,5 +46,24 @@ def __(PomodoroTimer):
     return
 
 
+@app.cell
+def __(mo):
+    mo.md(r"""test controller""")
+    return
+
+
+@app.cell
+def __(PomodoroTimer, mo, pomodoro_timer_controller):
+    pomodoro_timer = PomodoroTimer(**pomodoro_timer_controller.value)
+    mo.vstack([pomodoro_timer, pomodoro_timer_controller.vstack()], gap=2)
+    return (pomodoro_timer,)
+
+
+@app.cell
+def __(PomodoroTimer):
+    pomodoro_timer_controller = PomodoroTimer.controller()
+    return (pomodoro_timer_controller,)
+
+
 if __name__ == "__main__":
     app.run()
