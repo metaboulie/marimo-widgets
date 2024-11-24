@@ -9,19 +9,20 @@ version = "0.1.0"
 description = "A comprehensive library of custom anywidget implementations for Marimo notebooks"
 authors = [
   { name = "eugene", email = "heinereugene@pm.me" },
-  { name = "Srihari Thyagarajan", email = "hari.leo03@gmail.com" }
+  { name = "Srihari Thyagarajan", email = "hari.leo03@gmail.com" },
 ]
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = ["anywidget>=0.9.13", "traitlets>=5.14.3"]
+dependencies = ["anywidget>=0.9.13", "numpy>=2.0.2", "traitlets>=5.14.3"]
 
 [dependency-groups]
 dev = [
   "anywidget>=0.9.13",
-  "marimo>=0.9.17",
+  "marimo>=0.9.23",
   "ruff>=0.7.3",
   "traitlets>=5.14.3",
 ]
+docs = ["mkdocs-material>=9.5.45"]
 
 [project.urls]
 Homepage = "https://github.com/metaboulie/marimo-widgets"
