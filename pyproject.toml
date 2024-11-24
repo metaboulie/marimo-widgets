@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mowidget"
-version = "0.1.1"
+version = "0.1.2"
 description = "A comprehensive library of custom anywidget implementations for Marimo notebooks"
 authors = [
   { name = "eugene", email = "heinereugene@pm.me" },
