@@ -6,6 +6,25 @@ science, visualization, and computational workflows.
 
 ## Features
 
--   Modular widget implementations
--   Easy integration with Marimo notebooks
--   Diverse widget types for various use cases
+-   **Base Widgets**
+    -   String Form: Interactive text input components
+-   **Design Components**
+    -   Color Matrix: Color selection and manipulation tools
+-   **Layout Elements**
+    -   Header: Customizable header components
+-   **Productivity Tools**
+    -   Pomodoro Timer: Time management widget
+-   **Data Visualization**
+    -   Array Viewer: Interactive array visualization component
+
+## Installation
+
+```bash
+pip install mowidget
+```
+
+## Examples
+
+Showcase notebooks demonstrating the usage of all widgets can be found in the
+`examples/` directory. Check out `examples/showcase_v0.1.0.py` for a
+comprehensive demonstration of all available components in v0.1.0.
