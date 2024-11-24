@@ -30,4 +30,11 @@ Repository = "https://github.com/metaboulie/marimo-widgets"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
-packages = ["mowidget"]
+packages = [
+  "mowidget",
+  "mowidget.design",
+  "mowidget.viewer",
+  "mowidget.productivity",
+  "mowidget.layout",
+  "mowidget.base",
+]
