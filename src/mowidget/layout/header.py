@@ -22,6 +22,8 @@ class NotebookHeader(anywidget.AnyWidget):
         A dictionary of metadata to display in the header.
     banner: str
         Optional. A URL to an image to display as the banner.
+    banner_height: int
+        Optional. Height of the banner image in pixels. Default is 200.
 
     Examples
     --------
@@ -33,6 +35,7 @@ class NotebookHeader(anywidget.AnyWidget):
     ...         "Last Updated": "November 3, 2024",
     ...     },
     ...     banner="https://example.com/banner.png",
+    ...     banner_height=300,
     ... )
 
     """
@@ -42,9 +45,27 @@ class NotebookHeader(anywidget.AnyWidget):
 
     metadata = traitlets.Dict({}).tag(sync=True)
     banner = traitlets.Unicode("").tag(sync=True)
+    banner_height = traitlets.Int(200).tag(sync=True)
 
-    def __init__(self, metadata: dict, banner: str | None = None) -> None:
-        """Initialize the NotebookHeader widget."""
+    def __init__(
+        self,
+        metadata: dict,
+        banner: str | None = None,
+        banner_height: int = 200,
+    ) -> None:
+        """
+        Initialize the NotebookHeader widget.
+
+        Parameters
+        ----------
+        metadata: dict
+            A dictionary of metadata to display in the header.
+        banner: str | None
+            Optional. A URL to an image to display as the banner.
+        banner_height: int
+            Optional. Height of the banner image in pixels. Default is 200.
+
+        """
         super().__init__()
 
         if not isinstance(metadata, dict):
@@ -53,3 +74,4 @@ class NotebookHeader(anywidget.AnyWidget):
 
         self.metadata = metadata
         self.banner = banner or ""
+        self.banner_height = banner_height

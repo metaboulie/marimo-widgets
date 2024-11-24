@@ -196,44 +196,28 @@ function render({ model, el }) {
     renderWidget();
 
     // Add event listeners for input parameters
-    const handleWorkDurationChange = () => {
-        resetTimer();
-        renderWidget();
-    };
+    const properties = [
+        "_work_duration_seconds",
+        "_short_break_seconds",
+        "_long_break_seconds",
+        "sessions_before_long_break",
+        "num_cycles",
+    ];
 
-    const handleShortBreakChange = () => {
-        resetTimer();
-        renderWidget();
-    };
-
-    const handleLongBreakChange = () => {
-        resetTimer();
-        renderWidget();
-    };
-
-    const handleSessionsChange = () => {
-        resetTimer();
-        renderWidget();
-    };
-
-    const handleNumCyclesChange = () => {
-        resetTimer();
-        renderWidget();
-    };
-
-    model.on("change:_work_duration_seconds", handleWorkDurationChange);
-    model.on("change:_short_break_seconds", handleShortBreakChange);
-    model.on("change:_long_break_seconds", handleLongBreakChange);
-    model.on("change:sessions_before_long_break", handleSessionsChange);
-    model.on("change:num_cycles", handleNumCyclesChange);
+    const handlers = properties.map((prop) => {
+        const handler = () => {
+            resetTimer();
+            renderWidget();
+        };
+        model.on(`change:${prop}`, handler);
+        return { prop, handler };
+    });
 
     return () => {
         stopTimer();
-        model.off("change:_work_duration_seconds", handleWorkDurationChange);
-        model.off("change:_short_break_seconds", handleShortBreakChange);
-        model.off("change:_long_break_seconds", handleLongBreakChange);
-        model.off("change:sessions_before_long_break", handleSessionsChange);
-        model.off("change:num_cycles", handleNumCyclesChange);
+        handlers.forEach(({ prop, handler }) => {
+            model.off(`change:${prop}`, handler);
+        });
         el.innerHTML = "";
     };
 }

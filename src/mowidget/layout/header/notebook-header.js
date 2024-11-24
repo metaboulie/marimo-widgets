@@ -55,13 +55,14 @@ function render({ model, el }) {
 
         const metadata = model.get("metadata");
         const banner = model.get("banner");
+        const bannerHeight = model.get("banner_height");
         const container = document.createElement("div");
         container.className = "header-container";
 
         container.innerHTML = `
             ${
                 banner
-                    ? `<img class="banner" src="${banner}" alt="Notebook Banner">`
+                    ? `<img class="banner" src="${banner}" alt="Notebook Banner" style="height: ${bannerHeight}px;">`
                     : ""
             }
             <div class="form-container">
@@ -101,21 +102,21 @@ function render({ model, el }) {
         });
     };
 
-    // Initial render
     renderWidget();
 
-    // Create change handlers
-    const handleMetadataChange = () => {
-        renderWidget();
-    };
+    const properties = ["metadata", "banner", "banner_height"];
+    const handlers = properties.map((prop) => {
+        const handler = () => renderWidget();
+        model.on(`change:${prop}`, handler);
+        return { prop, handler };
+    });
 
-    const handleBannerChange = () => {
-        renderWidget();
+    return () => {
+        handlers.forEach(({ prop, handler }) => {
+            model.off(`change:${prop}`, handler);
+        });
+        el.innerHTML = "";
     };
-
-    // Add event listeners
-    model.on("change:metadata", handleMetadataChange);
-    model.on("change:banner", handleBannerChange);
 }
 
 export default { render };

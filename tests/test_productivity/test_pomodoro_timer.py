@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.9.17"
+__generated_with = "0.9.20"
 app = marimo.App()
 
 
@@ -44,6 +44,25 @@ def __(PomodoroTimer):
         num_cycles=2,
     )
     return
+
+
+@app.cell
+def __(mo):
+    mo.md(r"""test controller""")
+    return
+
+
+@app.cell
+def __(PomodoroTimer, mo, pomodoro_timer_controller):
+    pomodoro_timer = PomodoroTimer(**pomodoro_timer_controller.value)
+    mo.vstack([pomodoro_timer, pomodoro_timer_controller.vstack()], gap=2)
+    return (pomodoro_timer,)
+
+
+@app.cell
+def __(PomodoroTimer):
+    pomodoro_timer_controller = PomodoroTimer.controller()
+    return (pomodoro_timer_controller,)
 
 
 if __name__ == "__main__":
