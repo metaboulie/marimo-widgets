@@ -38,7 +38,17 @@ class DummyWidget(anywidget.AnyWidget):
         message: str = "hello marimo",
         particle_count: int = 50,
     ) -> None:
-        """Initialize the widget."""
+        """
+        Initialize the widget.
+
+        Parameters
+        ----------
+        message: str
+            The message to display.
+        particle_count: int
+            The number of particles to display.
+
+        """
         super().__init__()
 
         self.message = message

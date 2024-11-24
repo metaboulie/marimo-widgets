@@ -1,35 +1,35 @@
 import marimo
 
-__generated_with = "0.9.17"
+__generated_with = "0.9.20"
 app = marimo.App()
 
 
 @app.cell
 def __():
     import marimo as mo
-
     return (mo,)
 
 
 @app.cell
 def __():
     from mowidget.layout.header import NotebookHeader
-
     return (NotebookHeader,)
 
 
 @app.cell
-def __(mo) -> None:
+def __(mo):
     mo.md(r"""## Testing NotebookHeader""")
+    return
 
 
 @app.cell
-def __(mo) -> None:
+def __(mo):
     mo.md(r"""test standard format""")
+    return
 
 
 @app.cell(hide_code=True)
-def __(NotebookHeader) -> None:
+def __(NotebookHeader):
     NotebookHeader(
         metadata={
             "Title": "Comprehensive E-Commerce Customer Behavior Analysis",
@@ -46,15 +46,54 @@ def __(NotebookHeader) -> None:
         },
         banner="https://raw.githubusercontent.com/Haleshot/marimo-tutorials/main/community-tutorials-banner.png",
     )
+    return
 
 
 @app.cell
-def __(mo) -> None:
-    mo.md(r"""test with no banner""")
+def __(mo):
+    mo.md(r"""test `banner_height`""")
+    return
 
 
 @app.cell(hide_code=True)
-def __(NotebookHeader) -> None:
+def __(mo):
+    banner_height = mo.ui.slider(
+        start=100,
+        step=20,
+        stop=1000,
+        value=200,
+        show_value=True,
+        label="Height of banner image: ",
+    )
+    banner_height
+    return (banner_height,)
+
+
+@app.cell(hide_code=True)
+def __(NotebookHeader, banner_height):
+    NotebookHeader(
+        metadata={
+            "Title": "Comprehensive E-Commerce Customer Behavior Analysis",
+            "Author": '<a href="https://github.com/Haleshot/marimo-tutorials">Dr. Jane Smith, PhD</a>',
+            "Affiliation": '<a href="https://www.datascience.university.edu">University of Data Science</a>',
+            "Version": "1.2.3.4",
+            "License": '<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>',
+            "Last Updated": "November 3, 2024",
+        },
+        banner="https://raw.githubusercontent.com/Haleshot/marimo-tutorials/main/community-tutorials-banner.png",
+        banner_height=banner_height.value,
+    )
+    return
+
+
+@app.cell
+def __(mo):
+    mo.md(r"""test with no banner""")
+    return
+
+
+@app.cell(hide_code=True)
+def __(NotebookHeader):
     NotebookHeader(
         metadata={
             "Title": "Comprehensive E-Commerce Customer Behavior Analysis",
@@ -70,11 +109,13 @@ def __(NotebookHeader) -> None:
             "Last Updated": "November 3, 2024",
         },
     )
+    return
 
 
 @app.cell
-def __(mo) -> None:
+def __(mo):
     mo.md(r"""test metadata auto-refresh""")
+    return
 
 
 @app.cell
@@ -85,7 +126,7 @@ def __(mo):
 
 
 @app.cell
-def __(NotebookHeader, version) -> None:
+def __(NotebookHeader, version):
     NotebookHeader(
         metadata={
             "Title": "Comprehensive E-Commerce Customer Behavior Analysis",
@@ -94,6 +135,7 @@ def __(NotebookHeader, version) -> None:
             "Version": version.value,
         },
     )
+    return
 
 
 if __name__ == "__main__":
