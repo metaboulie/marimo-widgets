@@ -38,3 +38,6 @@ packages = [
   "mowidget.layout",
   "mowidget.base",
 ]
+
+[tool.setuptools.package-data]
+"*" = ["*.js", "*.css", "*.html"]
