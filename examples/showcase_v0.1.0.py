@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.9.20"
-app = marimo.App(layout_file="layouts/mowidget_showcase_v0.1.0.grid.json")
+app = marimo.App(layout_file="layouts/showcase_v0.1.0.grid.json")
 
 
 @app.cell(hide_code=True)
@@ -25,32 +25,36 @@ def create_header(NotebookHeader, datetime, mo):
     return (header,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def __(mo):
-    mo.md(
-        r"""
-        ## 1. Productivity Tools
-
-        ### PomodoroTimer
-
-        Start a focused work session with customizable durations:
-        """
-    )
+    mo.md(r"""__Pomodoro Timer__: Start a focused work session with customizable durations.""")
     return
 
 
 @app.cell
-def section_pomodoro(PomodoroTimer, mo):
-    pomodoro = mo.ui.anywidget(
-        PomodoroTimer(
-            work_duration=25.0,
-            short_break=5.0,
-            long_break=15.0,
-            sessions_before_long_break=4,
-            num_cycles=3,
-        )
+def __(mo):
+    pomodoro_control = mo.ui.dictionary(
+        {
+            "work_duration": mo.ui.number(
+                start=0.1, value=25.0, label="work duration"
+            ),
+            "short_break": mo.ui.number(start=0.1, value=5.0, label="short break"),
+            "long_break": mo.ui.number(start=0.1, value=15.0, label="long break"),
+            "sessions_before_long_break": mo.ui.number(
+                start=1, step=1, value=4, label="sessions before long break"
+            ),
+            "num_cycles": mo.ui.number(
+                start=1, step=1, value=3, label="number of cycles"
+            ),
+        }
     )
-    pomodoro
+    return (pomodoro_control,)
+
+
+@app.cell
+def section_pomodoro(PomodoroTimer, mo, pomodoro_control):
+    pomodoro = mo.ui.anywidget(PomodoroTimer(**pomodoro_control.value))
+    mo.vstack([pomodoro, pomodoro_control.vstack()], gap=2)
     return (pomodoro,)
 
 
