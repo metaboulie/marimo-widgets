@@ -26,8 +26,8 @@ class DummyWidget(anywidget.AnyWidget):
 
     """
 
-    _esm = pathlib.Path(__file__).parent / "dummy" / "dummy.js"
-    _css = pathlib.Path(__file__).parent / "dummy" / "dummy.css"
+    _esm = pathlib.Path(__file__).parent.parent / "frontend/js/dummy.js"
+    _css = pathlib.Path(__file__).parent.parent / "frontend/css/dummy.css"
 
     # Fun traits to control the widget
     message = traitlets.Unicode(default_value="hello marimo").tag(sync=True)

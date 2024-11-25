@@ -50,8 +50,10 @@ class ColorMatrix(anywidget.AnyWidget):
 
     """
 
-    _esm = pathlib.Path(__file__).parent / "color-matrix" / "color-matrix.js"
-    _css = pathlib.Path(__file__).parent / "color-matrix" / "color-matrix.css"
+    _esm = pathlib.Path(__file__).parent.parent / "frontend/js/color-matrix.js"
+    _css = (
+        pathlib.Path(__file__).parent.parent / "frontend/css/color-matrix.css"
+    )
 
     # Core data
     colors = traitlets.List().tag(sync=True)  # List of lists for color values

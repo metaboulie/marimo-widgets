@@ -1,17 +1,27 @@
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "marimo",
+#     "numpy",
+#     "mowidget",
+# ]
+# ///
+
+
 import marimo
 
 __generated_with = "0.9.23"
-app = marimo.App(layout_file="layouts/showcase_v0.1.0.grid.json")
+app = marimo.App()
 
 
 @app.cell
-def __(mo):
+def title(mo):
     mo.md(r"""# MoWidget v0.1.0 showcase""")
     return
 
 
 @app.cell
-def __(mo):
+def string_form_intro(mo):
     mo.md(
         r"""
         ## String Form
@@ -25,29 +35,26 @@ def __(mo):
 
 
 @app.cell
-def __(mo):
-    from mowidget.base.string_form import StringForm
-
-
+def create_string_form(StringForm, mo):
     string_form = mo.ui.anywidget(StringForm(default_keys=["name", "email"]))
     string_form
-    return StringForm, string_form
+    return (string_form,)
 
 
 @app.cell
-def __(mo):
+def access_form_data(mo):
     mo.md("""access form data with `form_data`""")
     return
 
 
 @app.cell
-def __(string_form):
+def string_form_data(string_form):
     string_form.form_data
     return
 
 
 @app.cell
-def __(mo):
+def notebook_header_intro(mo):
     mo.md(
         r"""
         ## Notebook Header
@@ -61,7 +68,7 @@ def __(mo):
 
 
 @app.cell
-def create_header(NotebookHeader, datetime):
+def create_notebook_header(NotebookHeader, datetime):
     NotebookHeader(
         metadata={
             "Title": "MoWidget Showcase v0.1.0",
@@ -77,19 +84,19 @@ def create_header(NotebookHeader, datetime):
 
 
 @app.cell
-def __(mo):
+def mixture_intro(mo):
     mo.md(r"""### A mixture of notebook header and string form""")
     return
 
 
 @app.cell
-def __(string_form):
+def string_form_data(string_form):
     string_form
     return
 
 
 @app.cell
-def __(NotebookHeader, string_form):
+def create_notebook_header_from_string_form(NotebookHeader, string_form):
     NotebookHeader(
         metadata=string_form.form_data,
         banner="https://raw.githubusercontent.com/Haleshot/marimo-tutorials/main/community-tutorials-banner.png",
@@ -99,7 +106,7 @@ def __(NotebookHeader, string_form):
 
 
 @app.cell
-def __(mo):
+def pomodoro_timer_intro(mo):
     mo.md(
         r"""
         ## Pomodoro Timer
@@ -120,13 +127,13 @@ def section_pomodoro(PomodoroTimer, mo, pomodoro_control):
 
 
 @app.cell
-def __(PomodoroTimer):
+def pomodoro_timer_controls(PomodoroTimer):
     pomodoro_control = PomodoroTimer.controller()
     return (pomodoro_control,)
 
 
 @app.cell
-def __(mo):
+def color_picker_intro(mo):
     mo.md(
         r"""
         ## Color Picker & Color Matrix
@@ -183,19 +190,19 @@ def create_color_matrix(
 
 
 @app.cell
-def __(mo):
+def get_color_matrix_controller(mo):
     mo.md(r"""get the controller of Color Matrix""")
     return
 
 
 @app.cell
-def __(ColorMatrix):
+def color_matrix_controller(ColorMatrix):
     color_matrix_controller = ColorMatrix.controller()
     return (color_matrix_controller,)
 
 
 @app.cell
-def __(
+def color_matrix_controls(
     color_matrix_controller,
     color_picker,
     mo,
@@ -215,19 +222,19 @@ def __(
 
 
 @app.cell
-def __(mo):
+def select_cells_in_color_matrix(mo):
     mo.md(r"""you can select cells in the Color Matrix ( try to click a cell in the color matrix )""")
     return
 
 
 @app.cell
-def __(palette_matrix):
+def selected_cells(palette_matrix):
     palette_matrix.selected_cells
     return
 
 
 @app.cell
-def __(mo):
+def array_viewer_intro(mo):
     mo.md(
         r"""
         ## ArrayViewer
@@ -245,7 +252,12 @@ def section_array_viewer(mo):
     array_controls = mo.ui.dictionary(
         {
             "rows": mo.ui.slider(
-                start=5, stop=30, step=1, value=15, label="Rows", show_value=True
+                start=5,
+                stop=30,
+                step=1,
+                value=15,
+                label="Rows",
+                show_value=True,
             ),
             "cols": mo.ui.slider(
                 start=5,
@@ -277,7 +289,7 @@ def section_array_viewer(mo):
 
 
 @app.cell
-def __(ArrayViewer):
+def array_viewer_controller(ArrayViewer):
     array_viewer_controller = ArrayViewer.controller()
     return (array_viewer_controller,)
 
@@ -330,7 +342,12 @@ def create_array_viewer(ArrayViewer, array_viewer_controller, data, mo):
 
 
 @app.cell
-def __(array_controls, array_viewer, array_viewer_controller, mo):
+def array_viewer_controls(
+    array_controls,
+    array_viewer,
+    array_viewer_controller,
+    mo,
+):
     mo.vstack(
         [
             array_viewer,
@@ -345,7 +362,7 @@ def __(array_controls, array_viewer, array_viewer_controller, mo):
 
 
 @app.cell
-def __(mo):
+def select_cells_in_array_viewer(mo):
     mo.md(r"""You can select cells in the Array Viewer""")
     return
 
@@ -357,13 +374,13 @@ def show_selected_cells(array_viewer):
 
 
 @app.cell
-def __(mo):
+def custom_outlier_detection_intro(mo):
     mo.md(r"""### Use custom outlier detection""")
     return
 
 
 @app.cell
-def __(np):
+def custom_outlier_detection(np):
     def custom_outlier_detection(
         data: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
@@ -380,43 +397,30 @@ def __(np):
 
 
 @app.cell
-def __(
-    ArrayViewer,
-    array_viewer_controller,
-    custom_outlier_detection,
-    data,
-    mo,
-):
-    mo.ui.anywidget(
-        ArrayViewer(
-            data=data,
-            outlier_detection=custom_outlier_detection,
-            **array_viewer_controller.value,
-        )
-    )
-    return
-
-
-@app.cell
-def __(mo):
+def use_color_picker_to_select_base_color(mo):
     mo.md(r"""### Use color picker to select base color""")
     return
 
 
 @app.cell
-def __(color_picker):
+def color_picker(color_picker):
     color_picker
     return
 
 
 @app.cell
-def __(array_viewer_w_color_picker):
+def array_viewer_w_color_picker(array_viewer_w_color_picker):
     array_viewer_w_color_picker
     return
 
 
 @app.cell
-def __(ArrayViewer, color_picker, data, mo):
+def create_array_viewer_w_color_picker(
+    ArrayViewer,
+    color_picker,
+    data,
+    mo,
+):
     array_viewer_w_color_picker = mo.ui.anywidget(
         ArrayViewer(
             data=data,
@@ -440,6 +444,7 @@ def __():
 
 @app.cell
 def import_widgets():
+    from mowidget.base.string_form import StringForm
     from mowidget.design.color_matrix import ColorMatrix
     from mowidget.design.color_picker import ColorPicker
     from mowidget.layout.header import NotebookHeader
@@ -451,6 +456,7 @@ def import_widgets():
         ColorPicker,
         NotebookHeader,
         PomodoroTimer,
+        StringForm,
     )
 
 
