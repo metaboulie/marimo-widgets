@@ -1,5 +1,19 @@
 """marimo widgets."""
 
-from . import base, design, layout, productivity, viewer
+from .base import DummyWidget, StringForm
+from .design import ColorMatrix, ColorPicker
+from .layout import NotebookHeader
+from .productivity import PomodoroTimer
+from .viewer import ArrayViewer
 
-__all__ = ["design", "viewer", "productivity", "layout", "base"]
+__version__ = "0.1.3"
+
+__all__ = [
+    "DummyWidget",
+    "StringForm",
+    "ColorMatrix",
+    "ColorPicker",
+    "NotebookHeader",
+    "PomodoroTimer",
+    "ArrayViewer",
+]

@@ -30,8 +30,10 @@ class ColorPicker(anywidget.AnyWidget):
 
     """
 
-    _esm = pathlib.Path(__file__).parent / "color-picker" / "color-picker.js"
-    _css = pathlib.Path(__file__).parent / "color-picker" / "color-picker.css"
+    _esm = pathlib.Path(__file__).parent.parent / "frontend/js/color-picker.js"
+    _css = (
+        pathlib.Path(__file__).parent.parent / "frontend/css/color-picker.css"
+    )
 
     # Core color value
     selected_color = traitlets.Unicode("#FF0000").tag(sync=True)

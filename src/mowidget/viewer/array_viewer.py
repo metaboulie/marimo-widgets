@@ -57,8 +57,10 @@ class ArrayViewer(anywidget.AnyWidget):
 
     """
 
-    _esm = pathlib.Path(__file__).parent / "array-viewer" / "array-viewer.js"
-    _css = pathlib.Path(__file__).parent / "array-viewer" / "array-viewer.css"
+    _esm = pathlib.Path(__file__).parent.parent / "frontend/js/array-viewer.js"
+    _css = (
+        pathlib.Path(__file__).parent.parent / "frontend/css/array-viewer.css"
+    )
 
     # Core data
     data = traitlets.List().tag(sync=True)

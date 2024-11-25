@@ -40,8 +40,8 @@ class NotebookHeader(anywidget.AnyWidget):
 
     """
 
-    _esm = Path(__file__).parent / "header" / "notebook-header.js"
-    _css = Path(__file__).parent / "header" / "notebook-header.css"
+    _esm = Path(__file__).parent.parent / "frontend/js/notebook-header.js"
+    _css = Path(__file__).parent.parent / "frontend/css/notebook-header.css"
 
     metadata = traitlets.Dict({}).tag(sync=True)
     banner = traitlets.Unicode("").tag(sync=True)
