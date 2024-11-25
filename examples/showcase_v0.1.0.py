@@ -1,3 +1,13 @@
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "marimo",
+#     "numpy",
+#     "mowidget",
+# ]
+# ///
+
+
 import marimo
 
 __generated_with = "0.9.23"
