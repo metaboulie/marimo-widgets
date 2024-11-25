@@ -32,8 +32,10 @@ class StringForm(anywidget.AnyWidget):
 
     """
 
-    _esm = pathlib.Path(__file__).parent / "string-form" / "string-form.js"
-    _css = pathlib.Path(__file__).parent / "string-form" / "string-form.css"
+    _esm = pathlib.Path(__file__).parent.parent / "frontend/js/string-form.js"
+    _css = (
+        pathlib.Path(__file__).parent.parent / "frontend/css/string-form.css"
+    )
 
     # Input trait for default keys
     default_keys = traitlets.List(traitlets.Unicode()).tag(sync=True)

@@ -41,10 +41,11 @@ class PomodoroTimer(anywidget.AnyWidget):
     """
 
     _esm = (
-        pathlib.Path(__file__).parent / "pomodoro-timer" / "pomodoro-timer.js"
+        pathlib.Path(__file__).parent.parent / "frontend/js/pomodoro-timer.js"
     )
     _css = (
-        pathlib.Path(__file__).parent / "pomodoro-timer" / "pomodoro-timer.css"
+        pathlib.Path(__file__).parent.parent
+        / "frontend/css/pomodoro-timer.css"
     )
 
     sessions_before_long_break = traitlets.Int(default_value=4).tag(sync=True)

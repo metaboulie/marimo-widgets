@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 
 [project]
 name = "mowidget"
-version = "0.1.2"
+dynamic = ["version"]
 description = "A comprehensive library of custom anywidget implementations for Marimo notebooks"
 authors = [
   { name = "eugene", email = "heinereugene@pm.me" },
@@ -13,11 +13,23 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["widgets", "notebook", "interactive", "marimo"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
 dependencies = ["anywidget>=0.9.13", "numpy>=2.0.2", "traitlets>=5.14.3"]
 
 [dependency-groups]
 dev = [
   "anywidget>=0.9.13",
+  "hatch>=1.13.0",
   "marimo>=0.9.23",
   "ruff>=0.7.3",
   "traitlets>=5.14.3",
@@ -28,16 +40,15 @@ docs = ["mkdocs-material>=9.5.45"]
 Homepage = "https://github.com/metaboulie/marimo-widgets"
 Repository = "https://github.com/metaboulie/marimo-widgets"
 
-[tool.setuptools]
-package-dir = { "" = "src" }
-packages = [
-  "mowidget",
-  "mowidget.design",
-  "mowidget.viewer",
-  "mowidget.productivity",
-  "mowidget.layout",
-  "mowidget.base",
-]
+[tool.hatch.version]
+path = "src/mowidget/__init__.py"
 
-[tool.setuptools.package-data]
-"*" = ["*.js", "*.css", "*.html"]
+[tool.hatch.build.targets.sdist]
+exclude = [".github", "docs", "examples", "tests"]
+include = ["src/mowidget/frontend/css", "src/mowidget/frontend/js"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mowidget"]
+
+[tool.hatch.envs.default]
+installer = "uv"
