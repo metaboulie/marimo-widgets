@@ -44,7 +44,7 @@ Repository = "https://github.com/metaboulie/marimo-widgets"
 path = "src/mowidget/__init__.py"
 
 [tool.hatch.build.targets.sdist]
-exclude = [".github", "docs", "examples", "tests"]
+exclude = [".github", "docs", "examples", "tests", "assets"]
 include = ["src/mowidget/frontend/css", "src/mowidget/frontend/js"]
 
 [tool.hatch.build.targets.wheel]
