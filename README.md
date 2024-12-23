@@ -4,18 +4,19 @@ A comprehensive library of custom anywidget implementations for Marimo
 notebooks, providing a rich set of interactive and reusable widgets for data
 science, visualization, and computational workflows.
 
-## Features
+## Featured widgets
 
--   **Base Widgets**
-    -   String Form: Interactive text input components
--   **Design Components**
-    -   Color Matrix: Color selection and manipulation tools
--   **Layout Elements**
-    -   Header: Customizable header components
--   **Productivity Tools**
-    -   Pomodoro Timer: Time management widget
--   **Data Visualization**
-    -   Array Viewer: Interactive array visualization component
+### Array viewer
+
+<div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+    <img src="./assets/array_viewer.gif" alt="array viewer"/>
+</div>
+
+### Color picker & color matrix
+
+<div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+    <img src="./assets/color_picker.gif" alt="color matrix"/>
+</div>
 
 ## Installation
 
@@ -23,8 +24,6 @@ science, visualization, and computational workflows.
 pip install mowidget
 ```
 
-## Examples
+## Showcase notebooks
 
-Showcase notebooks demonstrating the usage of all widgets can be found in the
-`examples/` directory. Check out `examples/showcase_v0.1.0.py` for a
-comprehensive demonstration of all available components in v0.1.0.
+- [MoWidget v0.1 Showcase](https://marimo.io/p/dev/notebook-jutz5b-0s8h9fujnx33ot7j57lwef)
