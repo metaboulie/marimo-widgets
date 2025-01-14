@@ -8,19 +8,24 @@ function render({ model, el }) {
         const gridContainer = document.createElement("div");
         gridContainer.className = "grid-container";
 
-        const rowLabelContainer = document.createElement("div");
-        rowLabelContainer.className = "row-labels";
-        rowLabelContainer.style.gap = `${model.get("grid_gap")}px`;
+        // Only add row labels if they exist
+        const rowLabels = model.get("row_labels");
+        if (rowLabels && rowLabels.length > 0) {
+            const rowLabelContainer = document.createElement("div");
+            rowLabelContainer.className = "row-labels";
+            rowLabelContainer.style.gap = `${model.get("grid_gap")}px`;
 
-        model.get("row_labels").forEach((label) => {
-            const labelDiv = document.createElement("div");
-            labelDiv.className = "label row-label";
-            labelDiv.textContent = label;
-            labelDiv.style.height = `${model.get("cell_height")}px`;
-            labelDiv.style.lineHeight = `${model.get("cell_height")}px`;
-            labelDiv.style.fontSize = `${model.get("font_size")}px`;
-            rowLabelContainer.appendChild(labelDiv);
-        });
+            rowLabels.forEach((label) => {
+                const labelDiv = document.createElement("div");
+                labelDiv.className = "label row-label";
+                labelDiv.textContent = label;
+                labelDiv.style.height = `${model.get("cell_height")}px`;
+                labelDiv.style.lineHeight = `${model.get("cell_height")}px`;
+                labelDiv.style.fontSize = `${model.get("font_size")}px`;
+                rowLabelContainer.appendChild(labelDiv);
+            });
+            gridContainer.appendChild(rowLabelContainer);
+        }
 
         const grid = document.createElement("div");
         grid.className = "color-grid";
@@ -38,6 +43,7 @@ function render({ model, el }) {
                 cell.style.width = `${model.get("cell_width")}px`;
                 cell.style.height = `${model.get("cell_height")}px`;
                 cell.style.backgroundColor = color;
+                cell.style.borderRadius = `${model.get("cell_radius")}px`;
 
                 // Check if cell is selected
                 const isSelected = model
@@ -80,7 +86,6 @@ function render({ model, el }) {
             });
         });
 
-        gridContainer.appendChild(rowLabelContainer);
         gridContainer.appendChild(grid);
         container.appendChild(gridContainer);
         el.appendChild(container);
@@ -96,6 +101,7 @@ function render({ model, el }) {
         "cell_height",
         "grid_gap",
         "font_size",
+        "cell_radius",
         "selected_cells",
     ];
 
