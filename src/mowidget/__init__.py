@@ -6,7 +6,7 @@ from .layout import NotebookHeader
 from .productivity import PomodoroTimer
 from .viewer import ArrayViewer
 
-__version__ = "0.1.3"
+__version__ = "0.1.5"
 
 __all__ = [
     "DummyWidget",
