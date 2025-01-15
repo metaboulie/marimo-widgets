@@ -10,8 +10,8 @@
 
 import marimo
 
-__generated_with = "0.9.34"
-app = marimo.App()
+__generated_with = "0.9.23"
+app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
@@ -69,7 +69,7 @@ def __(mo):
 
 @app.cell(hide_code=True)
 def access_form_data(mo):
-    mo.md("""access form data """)
+    mo.md("""access form data""")
     return
 
 
@@ -117,21 +117,32 @@ def section_color_tools(ColorPicker, mo):
 
 
 @app.cell
-def __(color_picker):
-    color_picker
-    return
-
-
-@app.cell
-def __(palette_matrix):
-    palette_matrix
-    return
-
-
-@app.cell
 def __(mo):
     configure_palette_matrix = mo.ui.switch(label="configure palette")
     return (configure_palette_matrix,)
+
+
+@app.cell
+def __(color_picker, create_pairplot, data, mo, palette_matrix):
+    mo.vstack(
+        [
+            create_pairplot(data),
+            mo.hstack(
+                [palette_matrix, color_picker],
+                align="center",
+                justify="space-around",
+            ),
+        ],
+        align="center",
+    )
+    return
+
+
+@app.cell
+def __(mo, palette_matrix, pprint):
+    with mo.redirect_stdout():
+        pprint.pprint(palette_matrix.selected_cells)
+    return
 
 
 @app.cell
@@ -153,6 +164,15 @@ def __(
         else configure_palette_matrix
     )
     return
+
+
+@app.cell
+def __(mo):
+    marker_size = mo.ui.slider(
+        3, 10, 0.1, 5, show_value=True, label="marker size: "
+    )
+    marker_size
+    return (marker_size,)
 
 
 @app.cell
@@ -206,49 +226,9 @@ def color_matrix_controller(ColorMatrix):
     return (color_matrix_controller,)
 
 
-@app.cell
-def color_matrix_controls(
-    color_matrix_controller,
-    color_picker,
-    mo,
-    palette_matrix,
-    palette_size,
-):
-    mo.vstack(
-        [
-            color_picker,
-            palette_matrix,
-            palette_size,
-            color_matrix_controller.vstack(),
-        ],
-        gap=2,
-    )
-    return
-
-
-@app.cell
-def select_cells_in_color_matrix(mo):
-    mo.md(r"""you can select cells in the Color Matrix ( try to click a cell in the color matrix )""")
-    return
-
-
-@app.cell
-def selected_cells(palette_matrix):
-    palette_matrix.selected_cells
-    return
-
-
-@app.cell
+@app.cell(hide_code=True)
 def array_viewer_intro(mo):
-    mo.md(
-        r"""
-        ## ArrayViewer
-
-        Visualize numerical arrays with outlier detection
-
-        - you can change row labels with `row_labels`
-        """
-    )
+    mo.md(r"""use array viewer for debuging, visualizing arrayes, and more""")
     return
 
 
@@ -337,10 +317,10 @@ def generate_array_data(array_controls, np):
 
 
 @app.cell
-def create_array_viewer(ArrayViewer, array_viewer_controller, data, mo):
+def create_array_viewer(ArrayViewer, array, array_viewer_controller, mo):
     array_viewer = mo.ui.anywidget(
         ArrayViewer(
-            data=data, outlier_detection="std", **array_viewer_controller.value
+            data=array, outlier_detection="std", **array_viewer_controller.value
         )
     )
     return (array_viewer,)
@@ -367,14 +347,9 @@ def array_viewer_controls(
 
 
 @app.cell
-def select_cells_in_array_viewer(mo):
-    mo.md(r"""You can select cells in the Array Viewer""")
-    return
-
-
-@app.cell
-def show_selected_cells(array_viewer):
-    array_viewer.selected_cells
+def show_selected_cells(array_viewer, mo, pprint):
+    with mo.redirect_stdout():
+        pprint.pprint(array_viewer.selected_cells)
     return
 
 
@@ -408,12 +383,6 @@ def use_color_picker_to_select_base_color(mo):
 
 
 @app.cell
-def color_picker(color_picker):
-    color_picker
-    return
-
-
-@app.cell
 def array_viewer_w_color_picker(
     array_viewer_w_color_picker,
     color_picker,
@@ -432,13 +401,14 @@ def create_array_viewer_w_color_picker(
     ArrayViewer,
     array,
     color_picker,
+    custom_outlier_detection,
     data,
     mo,
 ):
     array_viewer_w_color_picker = mo.ui.anywidget(
         ArrayViewer(
             data=array,
-            outlier_detection=None,
+            outlier_detection=custom_outlier_detection,
             color_mode="single_color",
             base_color=color_picker.selected_color,
             cell_size=int(1 / data.size * 8000),
@@ -452,10 +422,11 @@ def create_array_viewer_w_color_picker(
 @app.cell
 def __():
     from datetime import datetime
+    import pprint
 
     import marimo as mo
     import numpy as np
-    return datetime, mo, np
+    return datetime, mo, np, pprint
 
 
 @app.cell
@@ -479,11 +450,22 @@ def import_widgets():
 @app.cell
 def __(mo):
     import plotly.io as pio
+    import plotly.express as px
 
     pio.templates.default = (
         "plotly_dark" if mo.app_meta().theme == "dark" else "simple_white"
     )
-    return (pio,)
+    return pio, px
+
+
+@app.cell
+def __(color_picker, palette_matrix):
+    another_color = (
+        palette_matrix.selected_cells[0][-1][:-2]
+        if palette_matrix.selected_cells
+        else color_picker.selected_color
+    )
+    return (another_color,)
 
 
 @app.cell
@@ -501,17 +483,7 @@ def __(mo, pd):
 
 
 @app.cell
-def __(color_picker, palette_matrix):
-    another_color = (
-        palette_matrix.selected_cells[0][-1][:-2]
-        if palette_matrix.selected_cells
-        else color_picker.selected_color
-    )
-    return (another_color,)
-
-
-@app.cell
-def __(another_color, color_picker, pd, px):
+def __(another_color, color_picker, marker_size, pd, px):
     def create_pairplot(data: pd.DataFrame, target="status"):
         data_copy = data.copy()
         data_copy[target] = data_copy[target].astype(str)
@@ -527,7 +499,7 @@ def __(another_color, color_picker, pd, px):
                 another_color,
             ],
         ).update_traces(
-            marker_size=7,
+            marker_size=marker_size.value,
         )
     return (create_pairplot,)
 
