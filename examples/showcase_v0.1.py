@@ -2,77 +2,24 @@
 # requires-python = ">=3.9"
 # dependencies = [
 #     "marimo",
-#     "numpy",
-#     "mowidget",
+#     "numpy==2.1.3",
+#     "mowidget==0.1.3",
+#     "plotly==5.24.1",
 # ]
 # ///
-
 
 import marimo
 
 __generated_with = "0.9.23"
-app = marimo.App()
+app = marimo.App(width="medium")
 
 
-@app.cell
-def title(mo):
-    mo.md(r"""# MoWidget v0.1.0 showcase""")
-    return
-
-
-@app.cell
-def string_form_intro(mo):
-    mo.md(
-        r"""
-        ## String Form
-
-        A simple extensible form with string-only data
-
-        - form data will only update with __Save Changes__
-        """
-    )
-    return
-
-
-@app.cell
-def create_string_form(StringForm, mo):
-    string_form = mo.ui.anywidget(StringForm(default_keys=["name", "email"]))
-    string_form
-    return (string_form,)
-
-
-@app.cell
-def access_form_data(mo):
-    mo.md("""access form data with `form_data`""")
-    return
-
-
-@app.cell
-def string_form_data(string_form):
-    string_form.form_data
-    return
-
-
-@app.cell
-def notebook_header_intro(mo):
-    mo.md(
-        r"""
-        ## Notebook Header
-
-        A simple header for your notebook
-
-        - use your own banner and control its height
-        """
-    )
-    return
-
-
-@app.cell
-def create_notebook_header(NotebookHeader, datetime):
+@app.cell(hide_code=True)
+def __(NotebookHeader, datetime):
     NotebookHeader(
         metadata={
-            "Title": "MoWidget Showcase v0.1.0",
-            "Description": "Interactive demonstration of MoWidget components",
+            "Title": "MoWidget Showcase v0.1",
+            "Description": "Interactive demonstration of widgets in marimo",
             "Author": '<a href="https://github.com/metaboulie/marimo-widgets">Eugene</a>',
             "Last Updated": datetime.now().strftime("%B %d, %Y"),
             "Components": "ColorPicker, ColorMatrix, ArrayViewer, PomodoroTimer, NotebookHeader, StringForm",
@@ -83,39 +30,58 @@ def create_notebook_header(NotebookHeader, datetime):
     return
 
 
+@app.cell(hide_code=True)
+def string_form_intro(mo):
+    mo.md(r"""Use the minimalistic string form for convenient configuration""")
+    return
+
+
 @app.cell
-def mixture_intro(mo):
-    mo.md(r"""### A mixture of notebook header and string form""")
+def create_string_form(StringForm, mo):
+    string_form = mo.ui.anywidget(StringForm(default_keys=["title", "name"]))
+    string_form.center()
+    return (string_form,)
+
+
+@app.cell
+def __(NotebookHeader, header_height, string_form):
+    NotebookHeader(
+        metadata=string_form.form_data,
+        banner="https://raw.githubusercontent.com/Haleshot/marimo-tutorials/main/community-tutorials-banner.png",
+        banner_height=header_height.value,
+    )
+    return
+
+
+@app.cell
+def __(header_height):
+    header_height
+    return
+
+
+@app.cell
+def __(mo):
+    header_height = mo.ui.slider(
+        100, 300, 1, 150, show_value=True, label="height of the header"
+    )
+    return (header_height,)
+
+
+@app.cell(hide_code=True)
+def access_form_data(mo):
+    mo.md("""access form data""")
     return
 
 
 @app.cell
 def string_form_data(string_form):
-    string_form
+    string_form.form_data
     return
 
 
-@app.cell
-def create_notebook_header_from_string_form(NotebookHeader, string_form):
-    NotebookHeader(
-        metadata=string_form.form_data,
-        banner="https://raw.githubusercontent.com/Haleshot/marimo-tutorials/main/community-tutorials-banner.png",
-        banner_height=150,
-    )
-    return
-
-
-@app.cell
+@app.cell(hide_code=True)
 def pomodoro_timer_intro(mo):
-    mo.md(
-        r"""
-        ## Pomodoro Timer
-
-        Start a focused work session with customizable durations
-
-        - access the controller with `pomodoro_control = PomodoroTimer.controller()`, then control the ui conveniently through this interactive and reactive controller
-        """
-    )
+    mo.md(r"""Use pomodoro timer to control your time in marimo""")
     return
 
 
@@ -132,13 +98,13 @@ def pomodoro_timer_controls(PomodoroTimer):
     return (pomodoro_control,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def color_picker_intro(mo):
     mo.md(
         r"""
-        ## Color Picker & Color Matrix
+        Freely choose color for plots
 
-        Select a base color to generate palettes and visualizations
+        Use color picker to select the base color, use the generated palette to choose other colors
         """
     )
     return
@@ -148,6 +114,65 @@ def color_picker_intro(mo):
 def section_color_tools(ColorPicker, mo):
     color_picker = mo.ui.anywidget(ColorPicker())
     return (color_picker,)
+
+
+@app.cell
+def __(mo):
+    configure_palette_matrix = mo.ui.switch(label="configure palette")
+    return (configure_palette_matrix,)
+
+
+@app.cell
+def __(color_picker, create_pairplot, data, mo, palette_matrix):
+    mo.vstack(
+        [
+            create_pairplot(data),
+            mo.hstack(
+                [palette_matrix, color_picker],
+                align="center",
+                justify="space-around",
+            ),
+        ],
+        align="center",
+    )
+    return
+
+
+@app.cell
+def __(mo, palette_matrix, pprint):
+    with mo.redirect_stdout():
+        pprint.pprint(palette_matrix.selected_cells)
+    return
+
+
+@app.cell
+def __(
+    color_matrix_controller,
+    configure_palette_matrix,
+    mo,
+    palette_size,
+):
+    (
+        mo.vstack(
+            [
+                configure_palette_matrix,
+                palette_size,
+                color_matrix_controller.vstack(),
+            ]
+        )
+        if configure_palette_matrix.value
+        else configure_palette_matrix
+    )
+    return
+
+
+@app.cell
+def __(mo):
+    marker_size = mo.ui.slider(
+        3, 10, 0.1, 5, show_value=True, label="marker size: "
+    )
+    marker_size
+    return (marker_size,)
 
 
 @app.cell
@@ -201,49 +226,9 @@ def color_matrix_controller(ColorMatrix):
     return (color_matrix_controller,)
 
 
-@app.cell
-def color_matrix_controls(
-    color_matrix_controller,
-    color_picker,
-    mo,
-    palette_matrix,
-    palette_size,
-):
-    mo.vstack(
-        [
-            color_picker,
-            palette_matrix,
-            palette_size,
-            color_matrix_controller.vstack(),
-        ],
-        gap=2,
-    )
-    return
-
-
-@app.cell
-def select_cells_in_color_matrix(mo):
-    mo.md(r"""you can select cells in the Color Matrix ( try to click a cell in the color matrix )""")
-    return
-
-
-@app.cell
-def selected_cells(palette_matrix):
-    palette_matrix.selected_cells
-    return
-
-
-@app.cell
+@app.cell(hide_code=True)
 def array_viewer_intro(mo):
-    mo.md(
-        r"""
-        ## ArrayViewer
-
-        Visualize numerical arrays with outlier detection
-
-        - you can change row labels with `row_labels`
-        """
-    )
+    mo.md(r"""use array viewer for debuging, visualizing arrayes, and more""")
     return
 
 
@@ -300,7 +285,7 @@ def generate_array_data(array_controls, np):
 
     rows = array_controls["rows"].value
     cols = array_controls["cols"].value
-    data = np.random.normal(loc=0, scale=1, size=(rows, cols))
+    array = np.random.normal(loc=0, scale=1, size=(rows, cols))
 
     # Add outliers
     num_outliers = array_controls["outliers"].value
@@ -309,16 +294,16 @@ def generate_array_data(array_controls, np):
     outlier_values = np.random.choice([-strength, strength], num_outliers)
 
     # Add special values
-    data[0, 0] = np.inf
-    data[0, 1] = np.nan
+    array[0, 0] = np.inf
+    array[0, 1] = np.nan
 
     # Add outliers
     for pos, val in zip(outlier_positions, outlier_values):
         i, j = pos // cols, pos % cols
-        data[i, j] = val * np.std(data)
+        array[i, j] = val * np.std(array)
     return (
+        array,
         cols,
-        data,
         i,
         j,
         num_outliers,
@@ -332,10 +317,10 @@ def generate_array_data(array_controls, np):
 
 
 @app.cell
-def create_array_viewer(ArrayViewer, array_viewer_controller, data, mo):
+def create_array_viewer(ArrayViewer, array, array_viewer_controller, mo):
     array_viewer = mo.ui.anywidget(
         ArrayViewer(
-            data=data, outlier_detection="std", **array_viewer_controller.value
+            data=array, outlier_detection="std", **array_viewer_controller.value
         )
     )
     return (array_viewer,)
@@ -362,14 +347,9 @@ def array_viewer_controls(
 
 
 @app.cell
-def select_cells_in_array_viewer(mo):
-    mo.md(r"""You can select cells in the Array Viewer""")
-    return
-
-
-@app.cell
-def show_selected_cells(array_viewer):
-    array_viewer.selected_cells
+def show_selected_cells(array_viewer, mo, pprint):
+    with mo.redirect_stdout():
+        pprint.pprint(array_viewer.selected_cells)
     return
 
 
@@ -403,31 +383,37 @@ def use_color_picker_to_select_base_color(mo):
 
 
 @app.cell
-def color_picker(color_picker):
-    color_picker
-    return
-
-
-@app.cell
-def array_viewer_w_color_picker(array_viewer_w_color_picker):
-    array_viewer_w_color_picker
+def array_viewer_w_color_picker(
+    array_viewer_w_color_picker,
+    color_picker,
+    mo,
+):
+    mo.hstack(
+        [color_picker, array_viewer_w_color_picker],
+        align="center",
+        justify="space-around",
+    )
     return
 
 
 @app.cell
 def create_array_viewer_w_color_picker(
     ArrayViewer,
+    array,
     color_picker,
+    custom_outlier_detection,
     data,
     mo,
 ):
     array_viewer_w_color_picker = mo.ui.anywidget(
         ArrayViewer(
-            data=data,
-            outlier_detection=None,
+            data=array,
+            outlier_detection=custom_outlier_detection,
             color_mode="single_color",
             base_color=color_picker.selected_color,
-            cell_size=int(1 / data.size * 10000),
+            cell_size=int(1 / data.size * 8000),
+            font_size=8,
+            margin_size=0,
         )
     )
     return (array_viewer_w_color_picker,)
@@ -436,10 +422,11 @@ def create_array_viewer_w_color_picker(
 @app.cell
 def __():
     from datetime import datetime
+    import pprint
 
     import marimo as mo
     import numpy as np
-    return datetime, mo, np
+    return datetime, mo, np, pprint
 
 
 @app.cell
@@ -458,6 +445,63 @@ def import_widgets():
         PomodoroTimer,
         StringForm,
     )
+
+
+@app.cell
+def __(mo):
+    import plotly.io as pio
+    import plotly.express as px
+
+    pio.templates.default = (
+        "plotly_dark" if mo.app_meta().theme == "dark" else "simple_white"
+    )
+    return pio, px
+
+
+@app.cell
+def __(color_picker, palette_matrix):
+    another_color = (
+        palette_matrix.selected_cells[0][-1][:-2]
+        if palette_matrix.selected_cells
+        else color_picker.selected_color
+    )
+    return (another_color,)
+
+
+@app.cell
+def __():
+    import pandas as pd
+    return (pd,)
+
+
+@app.cell
+def __(mo, pd):
+    data = pd.read_csv(mo.notebook_dir() / "parkinsons.csv")[
+        ["RPDE", "HNR", "NHR", "status"]
+    ]
+    return (data,)
+
+
+@app.cell
+def __(another_color, color_picker, marker_size, pd, px):
+    def create_pairplot(data: pd.DataFrame, target="status"):
+        data_copy = data.copy()
+        data_copy[target] = data_copy[target].astype(str)
+        return px.scatter_matrix(
+            data_copy,
+            dimensions=list(data_copy.columns[:-1]),
+            color=target,
+            symbol=target,
+            symbol_sequence=["cross", "square"],
+            opacity=0.5,
+            color_discrete_sequence=[
+                color_picker.selected_color,
+                another_color,
+            ],
+        ).update_traces(
+            marker_size=marker_size.value,
+        )
+    return (create_pairplot,)
 
 
 if __name__ == "__main__":

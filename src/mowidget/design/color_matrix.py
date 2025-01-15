@@ -33,7 +33,7 @@ class ColorMatrix(anywidget.AnyWidget):
         2D array or nested list of tooltip texts for each cell. If None,
         the color values will be used as tooltips.
     row_labels : Optional[list[str]], default=None
-        List of labels for each row. If None, numeric indices will be used.
+        List of labels for each row. If None, no row labels will be displayed.
     cell_width : int, default=40
         Width of each cell in pixels.
     cell_height : int, default=40
@@ -42,6 +42,9 @@ class ColorMatrix(anywidget.AnyWidget):
         Gap between cells in pixels.
     font_size : int, default=12
         Font size for labels in pixels.
+    cell_radius : int, default=0
+        Border radius of cells in pixels.
+        Set to half of cell width/height for circular cells.
 
     Attributes
     ----------
@@ -62,7 +65,9 @@ class ColorMatrix(anywidget.AnyWidget):
     )  # List of lists for tooltip text
 
     # Labels
-    row_labels = traitlets.List(trait=traitlets.Unicode()).tag(sync=True)
+    row_labels = traitlets.List(
+        trait=traitlets.Unicode(), default_value=[]
+    ).tag(sync=True)
 
     selected_cells = traitlets.List().tag(
         sync=True
@@ -73,6 +78,7 @@ class ColorMatrix(anywidget.AnyWidget):
     cell_height = traitlets.Int(default_value=40).tag(sync=True)
     grid_gap = traitlets.Int(default_value=2).tag(sync=True)
     font_size = traitlets.Int(default_value=12).tag(sync=True)
+    cell_radius = traitlets.Int(default_value=0).tag(sync=True)
 
     def __init__(  # noqa: PLR0913
         self,
@@ -83,27 +89,9 @@ class ColorMatrix(anywidget.AnyWidget):
         cell_height: int = 40,
         grid_gap: int = 2,
         font_size: int = 12,
+        cell_radius: int = 0,
     ) -> None:
-        """
-        Parameters
-        ----------
-        color_data : Union[np.ndarray, list[list]]
-            2D array or nested list of color values to display in the matrix.
-        tooltips : Optional[Union[np.ndarray, list[list]]], default=None
-            2D array or nested list of tooltip texts for each cell. If None,
-            the color values will be used as tooltips.
-        row_labels : Optional[list[str]], default=None
-            List of labels for each row. If None, numeric indices will be used.
-        cell_width : int, default=40
-            Width of each cell in pixels.
-        cell_height : int, default=40
-            Height of each cell in pixels.
-        grid_gap : int, default=2
-            Gap between cells in pixels.
-        font_size : int, default=12
-            Font size for labels in pixels.
-
-        """
+        """Initialize the ColorMatrix widget."""
         super().__init__()
 
         # Convert numpy arrays to lists for JSON serialization
@@ -120,13 +108,8 @@ class ColorMatrix(anywidget.AnyWidget):
             tooltips.tolist() if isinstance(tooltips, np.ndarray) else tooltips
         )
 
-        # Handle labels
-        n_rows = len(self.colors)
-        self.row_labels = (
-            row_labels
-            if row_labels is not None
-            else [str(i) for i in range(n_rows)]
-        )
+        # Handle labels - only set if provided
+        self.row_labels = row_labels if row_labels is not None else []
 
         self.selected_cells = []
 
@@ -135,6 +118,7 @@ class ColorMatrix(anywidget.AnyWidget):
         self.cell_height = cell_height
         self.grid_gap = grid_gap
         self.font_size = font_size
+        self.cell_radius = cell_radius
 
     @classmethod
     def controller(cls: type[ColorMatrix]) -> mo.ui.dictionary:
@@ -150,6 +134,9 @@ class ColorMatrix(anywidget.AnyWidget):
                 "grid_gap": mo.ui.number(start=0, value=2, label="grid gap"),
                 "font_size": mo.ui.number(
                     start=1, step=1, value=10, label="font size"
+                ),
+                "cell_radius": mo.ui.number(
+                    start=0, step=1, value=0, label="cell radius"
                 ),
             }
         )
