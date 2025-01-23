@@ -32,28 +32,31 @@ class ArrayViewer(anywidget.AnyWidget):
     - Special indicators for nan/inf values
     - Interactive cell selection and hover information
 
-    Parameters
-    ----------
-    data : ArrayLike
-        2D array of numerical values to visualize
-    color_mode : str, default="grayscale"
-        Color mapping mode. One of: "grayscale", "single_color"
-    base_color : str, default="#1f77b4"
-        Base color for single_color mode (hex format)
-    outlier_detection : str | Callable | None, default="std"
-        Method for detecting outliers: "std", callable, or None.
-        If callable, it should take the array data and return a tuple of
-        (outliers_high, outliers_low) boolean masks
-    outlier_threshold : float, default=2.0
-        Threshold for outlier detection when using "std" method
-    row_labels : list[str] | None, default=None
-        Custom labels for rows
-    cell_size : int, default=40
-        Size of each cell in pixels
-    margin_size : int, default=2
-        Size of margin between cells in pixels
-    font_size : int, default=12
-        Font size for labels and tooltips in pixels
+    Args:
+        data (ArrayLike): 2D array of numerical values to visualize
+        color_mode (str, default="grayscale"): Color mapping mode. One of:
+            "grayscale", "single_color"
+        base_color (str, default="#1f77b4"): Base color for single_color mode
+        outlier_detection (str | Callable, default="std", optional): Method for
+            detecting outliers: "std", callable, or None.
+            If callable, it should take the array data and return a tuple of
+            (outliers_high, outliers_low) boolean masks
+        outlier_threshold (float, default=2.0): Threshold for outlier
+            detection when using "std" method
+        row_labels (list[str], default=None, optional): Custom labels for rows
+        cell_size (int, default=40): Size of each cell in pixels
+        margin_size (int, default=2): Size of margin between cells in pixels
+        font_size (int, default=12): Font size for labels and tooltips in
+            pixels
+
+    Examples:
+        >>> data = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+        >>> row_labels = ["Row 1", "Row 2", "Row 3"]
+        >>> ArrayViewer(data, row_labels=row_labels)
+
+    Note:
+        Use ArrayViewer.controller() to get a dictionary of traits that can
+        be used to control the widget.
 
     """
 
@@ -96,7 +99,6 @@ class ArrayViewer(anywidget.AnyWidget):
         margin_size: int = 2,
         font_size: int = 12,
     ) -> None:
-        """Initialize the ArrayViewer widget."""
         super().__init__()
 
         # Convert input data to numpy array and then to list
@@ -217,14 +219,29 @@ class ArrayViewer(anywidget.AnyWidget):
                             self.tooltips[i][j] += " (outlier)"
 
     def set_color_mode(self, mode: str) -> None:
-        """Change the color mapping mode."""
+        """
+        Change the color mapping mode.
+
+        Args:
+            mode (str): The new color mapping mode.
+                - "grayscale": Use grayscale color mapping.
+                - "single_color": Use a single color for all cells.
+
+        """
         self.color_mode = mode
         self._update_colors()
 
     def set_outlier_detection(
         self, method: str | None, threshold: float | None = None
     ) -> None:
-        """Update outlier detection settings."""
+        """
+        Update outlier detection settings.
+
+        Args:
+            method (str, optional): The new outlier detection method.
+            threshold (float, optional): The new outlier threshold.
+
+        """
         self.outlier_detection = method
         if threshold is not None:
             self.outlier_threshold = threshold

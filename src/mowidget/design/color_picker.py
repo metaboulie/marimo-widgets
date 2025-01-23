@@ -22,11 +22,19 @@ class ColorPicker(anywidget.AnyWidget):
     A minimal color picker widget.
 
     Attributes:
-        selected_color: The currently selected color.
-        available_palette_types: List of available palette types.
+        selected_color (str): The currently selected color.
+        available_palette_types (tuple[PALETTE_TYPE, ...]):
+            List of available palette types.
 
     Methods:
         generate_palette: Generate a color palette based on color theory.
+
+    Examples:
+        >>> color_picker = ColorPicker()
+        >>> palette = color_picker.generate_palette(
+        ...     palette_type="analogous",
+        ...     palette_size=5,
+        ... )
 
     """
 
@@ -52,7 +60,17 @@ class ColorPicker(anywidget.AnyWidget):
         palette_type: PALETTE_TYPE = "analogous",
         palette_size: int = 5,
     ) -> list[str]:
-        """Generate a color palette based on color theory."""
+        """
+        Generate a color palette based on color theory.
+
+        Args:
+            palette_type (PALETTE_TYPE): The type of palette to generate.
+            palette_size (int): The number of colors in the palette.
+
+        Returns:
+            list[str]: A list of color strings in the format "#RRGGBBAA".
+
+        """
         # Convert hex to HSV
         r, g, b = (
             int(self.selected_color[i : i + 2], 16) / 255 for i in (1, 3, 5)

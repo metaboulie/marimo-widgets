@@ -1,4 +1,4 @@
-"""A fun dummy widget that says hello."""
+"""A hello world widget."""
 
 import pathlib
 
@@ -10,19 +10,15 @@ class DummyWidget(anywidget.AnyWidget):
     """
     A playful widget that says hello with style.
 
-    Parameters
-    ----------
-    message: str
-        The message to display.
-    particle_count: int
-        The number of particles to display.
+    Args:
+        message (str): The message to display.
+        particle_count (int): The number of particles to display.
 
-    Examples
-    --------
-    >>> DummyWidget(
-    ...     message="hello marimo",
-    ...     particle_count=50,
-    ... )
+    Examples:
+        >>> DummyWidget(
+        ...     message="hello marimo",
+        ...     particle_count=50,
+        ... )
 
     """
 
@@ -38,17 +34,6 @@ class DummyWidget(anywidget.AnyWidget):
         message: str = "hello marimo",
         particle_count: int = 50,
     ) -> None:
-        """
-        Initialize the widget.
-
-        Parameters
-        ----------
-        message: str
-            The message to display.
-        particle_count: int
-            The number of particles to display.
-
-        """
         super().__init__()
 
         self.message = message
