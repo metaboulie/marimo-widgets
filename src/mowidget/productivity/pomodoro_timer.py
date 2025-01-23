@@ -11,32 +11,29 @@ class PomodoroTimer(anywidget.AnyWidget):
     """
     Pomodoro Timer.
 
-    Parameters
-    ----------
-    work_duration: float
-        The duration of a work session in minutes.
-    short_break: float
-        The duration of a short break in minutes.
-    long_break: float
-        The duration of a long break in minutes.
-    sessions_before_long_break: int
-        The number of sessions before a long break.
-    num_cycles: int
-        The total number of pomodoro cycles to complete.
+    Args:
+        work_duration (float): The duration of a work session in minutes.
+        short_break (float): The duration of a short break in minutes.
+        long_break (float): The duration of a long break in minutes.
+        sessions_before_long_break (int): The number of sessions before a long
+            break.
+        num_cycles (int): The total number of pomodoro cycles to complete.
 
-    Attributes
-    ----------
-    current_session: int
-        The current session number.
+    Attributes:
+        current_session: int
+            The current session number.
 
-    Examples
-    --------
-    >>> PomodoroTimer(
-    ...     work_duration=25.0,
-    ...     short_break=5.0,
-    ...     long_break=15.0,
-    ...     sessions_before_long_break=4,
-    ... )
+    Examples:
+        >>> PomodoroTimer(
+        ...     work_duration=25.0,
+        ...     short_break=5.0,
+        ...     long_break=15.0,
+        ...     sessions_before_long_break=4,
+        ... )
+
+    Note:
+        Use PomodoroTimer.controller() to get a dictionary of traits that can
+        be used to control the widget.
 
     """
 
@@ -67,23 +64,6 @@ class PomodoroTimer(anywidget.AnyWidget):
         sessions_before_long_break: int = 4,
         num_cycles: int = 5,
     ) -> None:
-        """
-        Initialize the Pomodoro Timer.
-
-        Parameters
-        ----------
-        work_duration: float
-            The duration of a work session in minutes.
-        short_break: float
-            The duration of a short break in minutes.
-        long_break: float
-            The duration of a long break in minutes.
-        sessions_before_long_break: int
-            The number of sessions before a long break.
-        num_cycles: int
-            The total number of pomodoro cycles to complete.
-
-        """
         super().__init__()
         self._validate_positive(work_duration, "work_duration")
         self._validate_positive(short_break, "short_break")

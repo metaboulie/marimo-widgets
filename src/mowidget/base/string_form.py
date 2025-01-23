@@ -16,19 +16,21 @@ class StringForm(anywidget.AnyWidget):
     fields. The fields are generated based on the provided default keys,
     where each key represents a form field label.
 
-    Parameters
-    ----------
-    default_keys : list[str] | None, optional
-        A list of strings that will be used as labels/keys for the form fields.
-        If None, an empty form will be created. Default is None.
+    Args:
+        default_keys (list[str], optional):
+            A list of strings that will be used as labels/keys for
+            the form fields. If None, an empty form will be created.
+            Default is None.
 
-    Attributes
-    ----------
-    default_keys : traitlets.List
-        The list of keys used to generate form fields, synced with frontend.
-    form_data : traitlets.Dict
-        A dictionary containing the form field values, where keys match
-        default_keys and values are the user inputs, synced with frontend.
+    Attributes:
+        default_keys (list[str]):
+            The list of keys used to generate form fields.
+        form_data (dict):
+            A dictionary containing the form field values, where keys match
+            default_keys and values are the user inputs, synced with frontend.
+
+    Examples:
+        >>> StringForm(default_keys=["name", "age", "email"])
 
     """
 

@@ -1,0 +1,160 @@
+.doc-viewer {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: light-dark(#ffffff, #1a1b2e);
+    color: light-dark(#1a1b2e, #e2e4ff);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.doc-section {
+    margin-bottom: 4px;
+}
+
+.doc-header {
+    margin-bottom: 8px;
+}
+
+.doc-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: light-dark(#2563eb, #60a5fa);
+    letter-spacing: -0.02em;
+}
+
+.doc-signature {
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: light-dark(#4b5563, #9ca3af);
+    font-weight: 400;
+}
+
+.collapsible {
+    border: 1px solid light-dark(#e5e7eb, #374151);
+    border-radius: 6px;
+    margin-bottom: 4px;
+}
+
+.collapsible-header {
+    padding: 10px 16px;
+    background: light-dark(#f3f4f6, #1f2937);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    border-radius: 6px 6px 0 0;
+}
+
+.collapsible-header:hover {
+    background: light-dark(#e5e7eb, #374151);
+}
+
+.toggle-icon {
+    font-size: 10px;
+    color: light-dark(#6b7280, #9ca3af);
+}
+
+.collapsible-body {
+    padding: 16px;
+    border-top: 1px solid light-dark(#e5e7eb, #374151);
+}
+
+/* Description section styling */
+.doc-description {
+    font-size: 13px;
+    line-height: 1.6;
+    color: light-dark(#1f2937, #e2e4ff);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+    font-weight: 400;
+}
+
+.doc-description p {
+    margin: 0;
+}
+
+/* Markdown content styling */
+.markdown-content {
+    line-height: 1.6;
+}
+
+.markdown-content p {
+    margin: 0 0 8px 0;
+}
+
+.markdown-content h3 {
+    color: light-dark(#2563eb, #60a5fa);
+    font-size: 13px;
+    font-weight: 600;
+    margin: 16px 0 12px 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid
+        light-dark(rgba(37, 99, 235, 0.2), rgba(96, 165, 250, 0.2));
+    letter-spacing: -0.01em;
+}
+
+.markdown-content ul {
+    margin: 8px 0;
+    list-style: none;
+    padding-left: 0;
+}
+
+.markdown-content li {
+    margin: 4px 0;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.markdown-content li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    color: light-dark(#6b7280, #9ca3af);
+    font-size: 9px;
+}
+
+/* Parameter styling */
+.markdown-content li code:first-of-type {
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: light-dark(#2563eb, #60a5fa);
+    padding: 0;
+    margin-right: 4px;
+}
+
+/* Code blocks */
+.markdown-content pre {
+    background: light-dark(#f3f4f6, #1f2937);
+    padding: 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+.markdown-content code {
+    font-family: ui-monospace, monospace;
+    font-size: 9px;
+    background: light-dark(#f3f4f6, #1f2937);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.markdown-content pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+/* First section header shouldn't have top margin */
+.markdown-content h3:first-child {
+    margin-top: 0;
+}

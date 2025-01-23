@@ -16,27 +16,22 @@ class NotebookHeader(anywidget.AnyWidget):
     A responsive and interactive header widget for Marimo notebooks with
     dynamic content rendering and toggle functionality.
 
-    Parameters
-    ----------
-    metadata: dict
-        A dictionary of metadata to display in the header.
-    banner: str
-        Optional. A URL to an image to display as the banner.
-    banner_height: int
-        Optional. Height of the banner image in pixels. Default is 200.
+    Args:
+        metadata (dict): A dictionary of metadata to display in the header.
+        banner (str, optional): A URL to an image to display as the banner.
+        banner_height (int, optional): Height of the banner image in pixels.
 
-    Examples
-    --------
-    >>> NotebookHeader(
-    ...     metadata={
-    ...         "Title": "Comprehensive E-Commerce Customer Behavior Analysis",
-    ...         "Author": "<a href='https://github.com/Haleshot/marimo-tutorials'>"
-    ...         "Dr. Jane Smith, PhD</a>",
-    ...         "Last Updated": "November 3, 2024",
-    ...     },
-    ...     banner="https://example.com/banner.png",
-    ...     banner_height=300,
-    ... )
+    Examples:
+        >>> NotebookHeader(
+        ...     metadata={
+        ...         "Title": "E-Commerce Customer Behavior Analysis",
+        ...         "Author": "<a href='https://github.com/Haleshot/marimo-tutorials'>"
+        ...         "Dr. Jane Smith, PhD</a>",
+        ...         "Last Updated": "November 3, 2024",
+        ...     },
+        ...     banner="https://example.com/banner.png",
+        ...     banner_height=300,
+        ... )
 
     """
 
@@ -53,19 +48,6 @@ class NotebookHeader(anywidget.AnyWidget):
         banner: str | None = None,
         banner_height: int = 200,
     ) -> None:
-        """
-        Initialize the NotebookHeader widget.
-
-        Parameters
-        ----------
-        metadata: dict
-            A dictionary of metadata to display in the header.
-        banner: str | None
-            Optional. A URL to an image to display as the banner.
-        banner_height: int
-            Optional. Height of the banner image in pixels. Default is 200.
-
-        """
         super().__init__()
 
         if not isinstance(metadata, dict):
