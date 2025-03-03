@@ -1,4 +1,4 @@
-# Marimo Widgets Collection
+# [Marimo](https://github.com/marimo-team/marimo) Widgets Collection
 
 A comprehensive library of custom anywidget implementations for Marimo
 notebooks, providing a rich set of interactive and reusable widgets for data
