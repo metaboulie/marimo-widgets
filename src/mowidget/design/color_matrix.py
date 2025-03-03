@@ -25,31 +25,43 @@ class ColorMatrix(anywidget.AnyWidget):
     labels, and tooltips. It supports user interaction through cell selection
     and hovering.
 
-    Parameters
-    ----------
-    color_data : Union[np.ndarray, list[list]]
-        2D array or nested list of color values to display in the matrix.
-    tooltips : Optional[Union[np.ndarray, list[list]]], default=None
-        2D array or nested list of tooltip texts for each cell. If None,
-        the color values will be used as tooltips.
-    row_labels : Optional[list[str]], default=None
-        List of labels for each row. If None, no row labels will be displayed.
-    cell_width : int, default=40
-        Width of each cell in pixels.
-    cell_height : int, default=40
-        Height of each cell in pixels.
-    grid_gap : int, default=2
-        Gap between cells in pixels.
-    font_size : int, default=12
-        Font size for labels in pixels.
-    cell_radius : int, default=0
-        Border radius of cells in pixels.
-        Set to half of cell width/height for circular cells.
+    Args:
+        color_data (np.ndarray | list[list]):
+            2D array or nested list of color values to display in the matrix.
+        tooltips (np.ndarray | list[list], optional):
+            2D array or nested list of tooltip texts for each cell. If None,
+            the color values will be used as tooltips.
+        row_labels (list[str], optional):
+            List of labels for each row.
+            If None, no row labels will be displayed.
+        cell_width (int, default=40):
+            Width of each cell in pixels.
+        cell_height (int, default=40):
+            Height of each cell in pixels.
+        grid_gap (int, default=2):
+            Gap between cells in pixels.
+        font_size (int, default=12):
+            Font size for labels in pixels.
+        cell_radius (int, default=0):
+            Border radius of cells in pixels.
+            Set to half of cell width/height for circular cells.
 
-    Attributes
-    ----------
-    selected_cells : list
-        Currently selected cells in the format [row, col, value].
+    Attributes:
+        selected_cells (list):
+            Currently selected cells in the format [row, col, value].
+
+    Examples:
+        >>> color_data = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+        >>> tooltips = np.array(
+        ...     [["A", "B", "C"], ["D", "E", "F"], ["G", "H", "I"]]
+        ... )
+        >>> row_labels = ["Row 1", "Row 2", "Row 3"]
+        >>> color_matrix = ColorMatrix(color_data, tooltips, row_labels)
+        >>> color_matrix.selected_cells
+
+    Note:
+        Use ColorMatrix.controller() to get a dictionary of traits that can
+        be used to control the widget.
 
     """
 
@@ -91,7 +103,6 @@ class ColorMatrix(anywidget.AnyWidget):
         font_size: int = 12,
         cell_radius: int = 0,
     ) -> None:
-        """Initialize the ColorMatrix widget."""
         super().__init__()
 
         # Convert numpy arrays to lists for JSON serialization
