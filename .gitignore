@@ -115,4 +115,6 @@ marimo/_lsp/
 .mypy_cache/
 __marimo__
 
+uv.lock
+
 +*
