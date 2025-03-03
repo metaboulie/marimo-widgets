@@ -1,8 +1,6 @@
-# blue = learned
+# Implementation pattern of widgets
 
-## the pattern of implementing a widget
-
-**python**
+## Python
 
 ```python
 import pathlib
@@ -24,7 +22,7 @@ class Widget(anywidget.AnyWidget):
         self.trait_2 = trait_2
 ```
 
-**javascript**
+## JavaScript
 
 ```javascript
 function render({ model, el }) {
@@ -75,7 +73,7 @@ function render({ model, el }) {
 export default { render };
 ```
 
-**css**
+## CSS
 
 ```css
 /* use light-dark to assign colors for both light and dark themes */
