@@ -10,7 +10,7 @@
 !assets/
 !assets/**
 !examples
-!examples/**
+!examples/**/.py
 !src/
 !src/**/*.py
 !src/**/*.css
