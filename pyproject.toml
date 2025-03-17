@@ -8,7 +8,7 @@ name = "mowidget"
 dynamic = ["version"]
 description = "A comprehensive library of custom anywidget implementations for Marimo notebooks"
 authors = [
-  { name = "eugene", email = "heinereugene@pm.me" },
+  { name = "métaboulie", email = "metaboulie@pm.me" },
   { name = "Srihari Thyagarajan", email = "hari.leo03@gmail.com" },
 ]
 readme = "README.md"
